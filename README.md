@@ -64,4 +64,4 @@ claude
 | [evolved-athlete/kb](https://github.com/evolved-athlete/kb) | Business knowledge base (private) |
 | [evolved-athlete/skills](https://github.com/evolved-athlete/skills) | Plugins marketplace |
 | [evolved-athlete/claude](https://github.com/evolved-athlete/claude) | This repo — config and setup |
-| [bold-minds/bots](https://github.com/bold-minds/bots) | Ladder plugin |
+| [evolved-athlete/skills](https://github.com/evolved-athlete/skills) | Plugins — main-branch, hormozi, ladder |
