@@ -10,10 +10,10 @@ remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty
 
 out=""
 
-# folder name only (not full path)
+# path with ~ shortening
 if [ -n "$cwd" ]; then
-  folder=$(basename "$cwd")
-  out="${out}$(printf '\033[34m%s\033[0m' "$folder")"
+  short_cwd="${cwd/#$HOME/\~}"
+  out="${out}$(printf '\033[34m%s\033[0m' "$short_cwd")"
 fi
 
 # model in dim white
