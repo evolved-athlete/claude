@@ -144,13 +144,35 @@ with open(os.path.expanduser('~/.config/main-branch/config.yaml'), 'w') as f:
 PYEOF
 ok "main-branch config → $KB_PATH"
 
-# Install Claude Code global config
+# Install Claude Code global config and statusline
 mkdir -p "$HOME/.claude"
-CONFIG_SRC="https://raw.githubusercontent.com/evolved-athlete/claude/main/CLAUDE.md"
-if curl -fsSL "$CONFIG_SRC" -o "$HOME/.claude/CLAUDE.md" 2>/dev/null; then
+BASE_URL="https://raw.githubusercontent.com/evolved-athlete/claude/main"
+
+if curl -fsSL "$BASE_URL/CLAUDE.md" -o "$HOME/.claude/CLAUDE.md" 2>/dev/null; then
   ok "Global CLAUDE.md installed"
 else
   warn "Could not download global CLAUDE.md — set it up manually from github.com/evolved-athlete/claude"
+fi
+
+if curl -fsSL "$BASE_URL/statusline.sh" -o "$HOME/.claude/statusline.sh" 2>/dev/null; then
+  chmod +x "$HOME/.claude/statusline.sh"
+  # Wire it into Claude Code settings
+  python3 - <<PYEOF
+import json, os
+settings_path = os.path.expanduser('~/.claude/settings.json')
+settings = {}
+try:
+    with open(settings_path) as f:
+        settings = json.load(f)
+except:
+    pass
+settings['statusLine'] = os.path.expanduser('~/.claude/statusline.sh')
+with open(settings_path, 'w') as f:
+    json.dump(settings, f, indent=2)
+PYEOF
+  ok "Statusline installed"
+else
+  warn "Could not download statusline — skipping"
 fi
 
 # Add evolved-athlete marketplace
