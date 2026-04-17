@@ -53,8 +53,8 @@ If it's been in progress for more than a few days without a ship date, raise the
 
 ## What I'm Working Toward
 
-1. Reference files fully populated (soul, offer, audience, voice, testimonials, angles)
-2. Content strategy defined (pillars, platforms, cadence)
-3. Ad batches running and tested
+1. Add pricing to offer.md (unblocks ads immediately)
+2. Codify research into reference files — start with `research/loom-mining/batch-23-content-marketing.md`
+3. First ad batch created and reviewed for compliance
 4. Organic content pipeline producing consistently
 5. VSL for Skool community finalized
