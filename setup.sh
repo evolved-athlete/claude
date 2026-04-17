@@ -137,38 +137,23 @@ fi
 
 # Add evolved-athlete marketplace
 info "Adding evolved-athlete plugin marketplace..."
-if claude plugin marketplace add github:evolved-athlete/skills 2>/dev/null; then
+if claude plugin marketplace add evolved-athlete/skills 2>/dev/null; then
   ok "evolved-athlete marketplace added"
 else
   warn "Could not add evolved-athlete marketplace (may already exist)"
-fi
-
-# Add bold-minds marketplace (for ladder)
-info "Adding bold-minds plugin marketplace..."
-if claude plugin marketplace add github:bold-minds/bots 2>/dev/null; then
-  ok "bold-minds marketplace added"
-else
-  warn "Could not add bold-minds marketplace (may already exist)"
 fi
 
 # Install plugins
 echo ""
 info "Installing plugins..."
 
-for plugin in "main-branch@evolved-athlete" "hormozi@evolved-athlete" "Notion@claude-plugins-official"; do
+for plugin in "main-branch@evolved-athlete" "hormozi@evolved-athlete" "ladder@evolved-athlete" "Notion@claude-plugins-official"; do
   if claude plugin install "$plugin" 2>/dev/null; then
     ok "Installed $plugin"
   else
     warn "Could not install $plugin — run 'claude plugin install $plugin' manually"
   fi
 done
-
-# Ladder from bold-minds
-if claude plugin install "ladder@bold-minds" 2>/dev/null; then
-  ok "Installed ladder@bold-minds"
-else
-  warn "Could not install ladder — run 'claude plugin install ladder@bold-minds' manually"
-fi
 
 # ── Step 5: MCP servers ──────────────────────────────────────────────────
 hr
