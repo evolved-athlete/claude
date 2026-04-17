@@ -38,6 +38,24 @@ echo "  • Your GitHub credentials"
 echo ""
 read -p "  Ready? Press Enter to start..." _
 
+# ── Prerequisites: git ───────────────────────────────────────────────────
+if ! command -v git &>/dev/null; then
+  hr
+  echo "INSTALLING GIT (Xcode Command Line Tools)"
+  echo ""
+  echo "  Git isn't installed yet. A popup will appear asking you to install"
+  echo "  'Xcode Command Line Tools' — click Install and wait for it to finish."
+  echo "  This takes 2–5 minutes. Come back here when it's done."
+  echo ""
+  xcode-select --install 2>/dev/null || true
+  echo ""
+  read -p "  Done installing? Press Enter to continue..." _
+  if ! command -v git &>/dev/null; then
+    fail "git still not found. Restart Terminal and run this script again."
+  fi
+  ok "git installed"
+fi
+
 # ── Step 1: Where should everything live? ───────────────────────────────
 hr
 echo "STEP 1 OF 7: Choose your home base"
