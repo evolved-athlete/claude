@@ -18,6 +18,19 @@ warn() { echo -e "${YELLOW}!${NC} $1"; }
 fail() { echo -e "${RED}✗${NC} $1"; exit 1; }
 hr()   { echo ""; echo "──────────────────────────────────────"; echo ""; }
 
+# Read from /dev/tty so prompts work when the script is piped (e.g. curl|bash).
+# Without this, `read` consumes the script itself as "user input" — which has
+# bitten us before (directories ended up named after literal bash source lines).
+# Usage: ask VAR "prompt" "default_value"
+ask() {
+  local __var="$1"; local __prompt="$2"; local __default="$3"
+  local __value=""
+  if [ -r /dev/tty ]; then
+    read -p "$__prompt" __value < /dev/tty || __value=""
+  fi
+  printf -v "$__var" '%s' "${__value:-$__default}"
+}
+
 # ── Header ───────────────────────────────────────────────────────────────
 clear
 echo ""
@@ -36,7 +49,7 @@ echo "  Takes about 5 minutes. You'll need:"
 echo "  • A Claude Max subscription (claude.ai)"
 echo "  • Your GitHub credentials"
 echo ""
-read -p "  Ready? Press Enter to start..." _
+ask _ "  Ready? Press Enter to start..." ""
 
 # ── Prerequisites: git ───────────────────────────────────────────────────
 if ! command -v git &>/dev/null; then
@@ -49,7 +62,7 @@ if ! command -v git &>/dev/null; then
   echo ""
   xcode-select --install 2>/dev/null || true
   echo ""
-  read -p "  Done installing? Press Enter to continue..." _
+  ask _ "  Done installing? Press Enter to continue..." ""
   if ! command -v git &>/dev/null; then
     fail "git still not found. Restart Terminal and run this script again."
   fi
@@ -63,8 +76,7 @@ echo ""
 echo "Where should your GitHub repos live on this Mac?"
 echo "(This is where kb, and future repos will be cloned.)"
 echo ""
-read -p "  Path [~/Documents/GitHub]: " GITHUB_DIR
-GITHUB_DIR="${GITHUB_DIR:-$HOME/Documents/GitHub}"
+ask GITHUB_DIR "  Path [~/Documents/GitHub]: " "$HOME/Documents/GitHub"
 GITHUB_DIR="${GITHUB_DIR/#\~/$HOME}"
 
 mkdir -p "$GITHUB_DIR"
@@ -107,6 +119,49 @@ fi
 hr
 echo "STEP 3 OF 7: Clone your knowledge base"
 echo ""
+
+# Heal legacy garbage paths from the pre-/dev/tty setup.sh bug, where `read`
+# under curl|bash consumed the next script line and turned it into a directory
+# name. Look for any real kb (has .git) under ~/Documents that isn't at
+# $KB_PATH, and migrate it — pulling brandon-personal along if we find it in
+# the same garbage parent.
+if [ ! -d "$KB_PATH/.git" ]; then
+  legacy_kb=""
+  while IFS= read -r candidate; do
+    if [ -d "$candidate/.git" ] && [ "$candidate" != "$KB_PATH" ]; then
+      legacy_kb="$candidate"
+      break
+    fi
+  done < <(find "$HOME/Documents" -maxdepth 4 -type d -name kb 2>/dev/null)
+
+  if [ -n "$legacy_kb" ]; then
+    info "Found existing kb at non-canonical path: $legacy_kb"
+    info "Migrating to: $KB_PATH"
+    mkdir -p "$(dirname "$KB_PATH")"
+    # Move kb
+    if [ -d "$KB_PATH" ] && [ -z "$(ls -A "$KB_PATH")" ]; then rmdir "$KB_PATH"; fi
+    mv "$legacy_kb" "$KB_PATH"
+    ok "Moved kb → $KB_PATH"
+    # Move brandon-personal if it was in the same garbage parent
+    legacy_parent="$(dirname "$legacy_kb")"
+    if [ -d "$legacy_parent/brandon-personal" ] && [ ! -d "$GITHUB_DIR/brandon-personal" ]; then
+      mv "$legacy_parent/brandon-personal" "$GITHUB_DIR/brandon-personal"
+      ok "Moved brandon-personal → $GITHUB_DIR/brandon-personal"
+    fi
+    # Remove garbage parent if now empty
+    if [ -d "$legacy_parent" ] && [ -z "$(ls -A "$legacy_parent")" ]; then
+      rmdir "$legacy_parent"
+      ok "Removed empty garbage directory"
+    fi
+  fi
+fi
+
+# Also sweep up empty leftover GITHUB_DIR=* dirs at $HOME (another read-bug artifact)
+while IFS= read -r d; do
+  if [ -n "$d" ] && [ -z "$(ls -A "$d" 2>/dev/null)" ]; then
+    rmdir "$d" 2>/dev/null && ok "Removed empty legacy dir: $(basename "$d")" || true
+  fi
+done < <(find "$HOME" -maxdepth 1 -type d -name 'GITHUB_DIR=*' 2>/dev/null)
 
 if [ -d "$KB_PATH/.git" ]; then
   ok "kb already exists at $KB_PATH"
