@@ -234,7 +234,11 @@ if os.path.exists(settings_path):
             settings = json.load(f)
     except Exception:
         pass
-settings['statusLine'] = os.path.expanduser('~/.claude/statusline.sh')
+# Claude Code expects statusLine as an object, not a bare string path.
+settings['statusLine'] = {
+    'type': 'command',
+    'command': os.path.expanduser('~/.claude/statusline.sh'),
+}
 with open(settings_path, 'w') as f:
     json.dump(settings, f, indent=2)
 PYEOF
