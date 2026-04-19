@@ -196,7 +196,7 @@ fi
 echo ""
 info "Installing plugins..."
 
-for plugin in "main-branch@evolved-athlete" "hormozi@evolved-athlete" "ladder@evolved-athlete" "Notion@claude-plugins-official"; do
+for plugin in "main-branch@evolved-athlete" "hormozi@evolved-athlete" "ladder@evolved-athlete" "notion@claude-plugins-official"; do
   if claude plugin install "$plugin"; then
     ok "Installed $plugin"
   else
