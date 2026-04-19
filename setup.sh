@@ -111,21 +111,28 @@ echo ""
 if [ -d "$KB_PATH/.git" ]; then
   ok "kb already exists at $KB_PATH"
 else
+  # If a prior failed run left an empty dir, remove it so git clone works
+  if [ -d "$KB_PATH" ] && [ -z "$(ls -A "$KB_PATH")" ]; then
+    rmdir "$KB_PATH"
+  fi
+
   info "Cloning evolved-athlete/kb..."
-  if git clone https://github.com/evolved-athlete/kb.git "$KB_PATH" 2>/dev/null; then
+  if git clone https://github.com/evolved-athlete/kb.git "$KB_PATH"; then
     ok "Cloned to $KB_PATH"
   else
-    warn "Could not clone kb automatically."
     echo ""
-    echo "  You may need to authenticate with GitHub first."
-    echo "  After this script finishes, run:"
+    echo "  Clone failed. The kb repo is private — you need GitHub auth first."
     echo ""
-    echo "    gh auth login"
-    echo "    git clone https://github.com/evolved-athlete/kb.git $KB_PATH"
+    echo "  Fix:"
+    echo "    1. Install GitHub CLI if you don't have it:"
+    echo "         brew install gh   (needs Homebrew — see brew.sh)"
+    echo "       or download the .pkg from https://cli.github.com"
+    echo "    2. Authenticate:"
+    echo "         gh auth login"
+    echo "       (choose GitHub.com → HTTPS → login with a web browser)"
+    echo "    3. Re-run this setup script."
     echo ""
-    # Create the directory anyway so config can be written
-    mkdir -p "$KB_PATH"
-    warn "Created empty $KB_PATH — clone it manually after authenticating."
+    fail "Cannot continue without a cloned kb."
   fi
 fi
 
@@ -134,50 +141,52 @@ hr
 echo "STEP 4 OF 7: Configure plugins"
 echo ""
 
-# Write main-branch config
+# Write main-branch config (plain YAML — no Python deps)
 mkdir -p "$HOME/.config/main-branch"
-python3 - <<PYEOF
-import yaml, os
-config = {'repo_path': '$KB_PATH'}
-with open(os.path.expanduser('~/.config/main-branch/config.yaml'), 'w') as f:
-    yaml.dump(config, f)
-PYEOF
+cat > "$HOME/.config/main-branch/config.yaml" <<EOF
+repo_path: "$KB_PATH"
+EOF
 ok "main-branch config → $KB_PATH"
 
 # Install Claude Code global config and statusline
 mkdir -p "$HOME/.claude"
 BASE_URL="https://raw.githubusercontent.com/evolved-athlete/claude/main"
 
-if curl -fsSL "$BASE_URL/CLAUDE.md" -o "$HOME/.claude/CLAUDE.md" 2>/dev/null; then
+if curl -fsSL "$BASE_URL/CLAUDE.md" -o "$HOME/.claude/CLAUDE.md"; then
   ok "Global CLAUDE.md installed"
 else
   warn "Could not download global CLAUDE.md — set it up manually from github.com/evolved-athlete/claude"
 fi
 
-if curl -fsSL "$BASE_URL/statusline.sh" -o "$HOME/.claude/statusline.sh" 2>/dev/null; then
+if curl -fsSL "$BASE_URL/statusline.sh" -o "$HOME/.claude/statusline.sh"; then
   chmod +x "$HOME/.claude/statusline.sh"
-  # Wire it into Claude Code settings
-  python3 - <<PYEOF
+  # Wire it into Claude Code settings (json is Python stdlib — no extra deps)
+  if python3 - <<'PYEOF'
 import json, os
 settings_path = os.path.expanduser('~/.claude/settings.json')
 settings = {}
-try:
-    with open(settings_path) as f:
-        settings = json.load(f)
-except:
-    pass
+if os.path.exists(settings_path):
+    try:
+        with open(settings_path) as f:
+            settings = json.load(f)
+    except Exception:
+        pass
 settings['statusLine'] = os.path.expanduser('~/.claude/statusline.sh')
 with open(settings_path, 'w') as f:
     json.dump(settings, f, indent=2)
 PYEOF
-  ok "Statusline installed"
+  then
+    ok "Statusline installed"
+  else
+    warn "Downloaded statusline but couldn't wire it into settings.json — add 'statusLine' manually to ~/.claude/settings.json"
+  fi
 else
   warn "Could not download statusline — skipping"
 fi
 
 # Add evolved-athlete marketplace
 info "Adding evolved-athlete plugin marketplace..."
-if claude plugin marketplace add evolved-athlete/skills 2>/dev/null; then
+if claude plugin marketplace add evolved-athlete/skills; then
   ok "evolved-athlete marketplace added"
 else
   warn "Could not add evolved-athlete marketplace (may already exist)"
@@ -188,7 +197,7 @@ echo ""
 info "Installing plugins..."
 
 for plugin in "main-branch@evolved-athlete" "hormozi@evolved-athlete" "ladder@evolved-athlete" "Notion@claude-plugins-official"; do
-  if claude plugin install "$plugin" 2>/dev/null; then
+  if claude plugin install "$plugin"; then
     ok "Installed $plugin"
   else
     warn "Could not install $plugin — run 'claude plugin install $plugin' manually"
@@ -202,7 +211,7 @@ echo ""
 
 # Google Drive
 info "Adding Google Drive MCP..."
-if claude mcp add gdrive -- npx -y @modelcontextprotocol/server-gdrive 2>/dev/null; then
+if claude mcp add gdrive -- npx -y @modelcontextprotocol/server-gdrive; then
   ok "Google Drive MCP added (you'll authenticate on first use)"
 else
   warn "Could not add Google Drive MCP automatically"
