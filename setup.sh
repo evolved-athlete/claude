@@ -121,18 +121,24 @@ echo "STEP 3 OF 7: Clone your knowledge base"
 echo ""
 
 # Heal legacy garbage paths from the pre-/dev/tty setup.sh bug, where `read`
-# under curl|bash consumed the next script line and turned it into a directory
-# name. Look for any real kb (has .git) under ~/Documents that isn't at
-# $KB_PATH, and migrate it — pulling brandon-personal along if we find it in
-# the same garbage parent.
+# under curl|bash consumed the next script line. mkdir -p on the resulting
+# literal string created a nested garbage chain like:
+#   ~/GITHUB_DIR="${GITHUB_DIR:-$HOME/Documents/GitHub}"/Documents/GitHub}"/kb
+# (because bash treats embedded `/` chars as path separators).
+#
+# Scan $HOME (bounded depth) for any kb that has .git and looks like ours
+# (contains CLAUDE.md), is not at $KB_PATH, and migrate it. Then walk up the
+# garbage parent chain rmdir'ing empty dirs until we hit a real directory.
 if [ ! -d "$KB_PATH/.git" ]; then
   legacy_kb=""
   while IFS= read -r candidate; do
-    if [ -d "$candidate/.git" ] && [ "$candidate" != "$KB_PATH" ]; then
+    if [ -d "$candidate/.git" ] \
+       && [ -f "$candidate/CLAUDE.md" ] \
+       && [ "$candidate" != "$KB_PATH" ]; then
       legacy_kb="$candidate"
       break
     fi
-  done < <(find "$HOME/Documents" -maxdepth 4 -type d -name kb 2>/dev/null)
+  done < <(find "$HOME" -maxdepth 6 -type d -name kb 2>/dev/null)
 
   if [ -n "$legacy_kb" ]; then
     info "Found existing kb at non-canonical path: $legacy_kb"
@@ -142,26 +148,28 @@ if [ ! -d "$KB_PATH/.git" ]; then
     if [ -d "$KB_PATH" ] && [ -z "$(ls -A "$KB_PATH")" ]; then rmdir "$KB_PATH"; fi
     mv "$legacy_kb" "$KB_PATH"
     ok "Moved kb → $KB_PATH"
+
     # Move brandon-personal if it was in the same garbage parent
     legacy_parent="$(dirname "$legacy_kb")"
     if [ -d "$legacy_parent/brandon-personal" ] && [ ! -d "$GITHUB_DIR/brandon-personal" ]; then
       mv "$legacy_parent/brandon-personal" "$GITHUB_DIR/brandon-personal"
       ok "Moved brandon-personal → $GITHUB_DIR/brandon-personal"
     fi
-    # Remove garbage parent if now empty
-    if [ -d "$legacy_parent" ] && [ -z "$(ls -A "$legacy_parent")" ]; then
-      rmdir "$legacy_parent"
-      ok "Removed empty garbage directory"
-    fi
+
+    # Walk up the garbage parent chain, rmdir'ing each empty dir.
+    # Stops at $HOME, $HOME/Documents, or $GITHUB_DIR as a safety net.
+    cleanup="$legacy_parent"
+    while [ -d "$cleanup" ] \
+       && [ -z "$(ls -A "$cleanup" 2>/dev/null)" ] \
+       && [ "$cleanup" != "$HOME" ] \
+       && [ "$cleanup" != "$HOME/Documents" ] \
+       && [ "$cleanup" != "$GITHUB_DIR" ]; do
+      rmdir "$cleanup" 2>/dev/null || break
+      ok "Removed empty garbage dir: $cleanup"
+      cleanup="$(dirname "$cleanup")"
+    done
   fi
 fi
-
-# Also sweep up empty leftover GITHUB_DIR=* dirs at $HOME (another read-bug artifact)
-while IFS= read -r d; do
-  if [ -n "$d" ] && [ -z "$(ls -A "$d" 2>/dev/null)" ]; then
-    rmdir "$d" 2>/dev/null && ok "Removed empty legacy dir: $(basename "$d")" || true
-  fi
-done < <(find "$HOME" -maxdepth 1 -type d -name 'GITHUB_DIR=*' 2>/dev/null)
 
 if [ -d "$KB_PATH/.git" ]; then
   ok "kb already exists at $KB_PATH"
