@@ -184,12 +184,19 @@ else
   warn "Could not download statusline — skipping"
 fi
 
-# Add evolved-athlete marketplace
+# Add plugin marketplaces
 info "Adding evolved-athlete plugin marketplace..."
 if claude plugin marketplace add evolved-athlete/skills; then
   ok "evolved-athlete marketplace added"
 else
   warn "Could not add evolved-athlete marketplace (may already exist)"
+fi
+
+info "Adding anthropics/claude-plugins-official marketplace..."
+if claude plugin marketplace add anthropics/claude-plugins-official; then
+  ok "claude-plugins-official marketplace added"
+else
+  warn "Could not add claude-plugins-official marketplace (may already exist)"
 fi
 
 # Install plugins
