@@ -5,7 +5,7 @@ Chat page that runs clients through the 10.0 Process (Vision → Belief → Iden
 Live: https://claude.ai/artifact/EW8uQafxG1PVWCbnDAq4Bb
 
 - `prompts/` — the coach's operating manual. Edit these, not the page.
-  - `05-opening-and-reentry.md` is a **draft** (the original wasn't provided). Keep its `## OPENING MESSAGE` / `## RE-ENTRY MESSAGE` headings and `{{placeholders}}`.
+  - `05-opening-and-reentry.md`: the page sends the `> ` quoted lines under `## THE OPENING MESSAGE` and `## THE RE-ENTRY MESSAGE` verbatim, and fills the two `[brackets]` in re-entry from saved progress. Keep those headings and bracket texts if you edit it.
 - `src.html` — page template; `<!--DOC:file.md-->` markers get the prompts inlined.
 - `python3 build.py` → `dist/10-0-coach.html`, then republish that file to the same artifact URL.
 

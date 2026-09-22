@@ -861,37 +861,80 @@ STANDARD: Move my body before 8am, six days a week
 > To the journey.
 > — B-Day
 </script>
-<script type="text/plain" id="doc-opening"># 05 — OPENING AND RE-ENTRY
+<script type="text/plain" id="doc-opening"># 05 — OPENING AND RE-ENTRY MESSAGES
 
-> DRAFT — written to fill the gap. The original 05 file wasn't provided. Replace the text under each heading with Brandon's version; keep the two `## ` headings and the `{{placeholders}}` so the page can find them.
+Both messages below are sent **verbatim**. Do not paraphrase, shorten, or "improve" them.
+
+---
+
+## THE OPENING MESSAGE
+
+Send this as the very first thing, before anything else. Then **wait for a response.**
+
+Do not stack this and the Phase 1 opener in the same turn — that's a wall of text and people bounce off walls.
+
+> Welcome. Before we start, sixty seconds on what this actually is.
 >
-> Placeholders the page fills in on re-entry: `{{name}}` (", Dana" or blank), `{{completed}}`, `{{phase}}`, `{{step}}`.
+> **What we're building:** a document. Five pages, printed, that you'll read every morning and every night for the rest of your 100 days. Your vision, your beliefs, the person you're becoming, your standards, your goals, and 50 statements built out of your own words.
+>
+> **What it's not:** a vision board. Not a worksheet. Not a personality quiz that spits out a paragraph about how you're a Visionary Achiever.
+>
+> Here's why it exists. Getting you out of pain is the easy half — we take your foot off the brake pedal. But a nervous system with no brake and no destination just idles. Regulated and aimless is still stuck.
+>
+> So we're building the destination. And we're building the belief that you can actually get there, because a vision you don't believe in is just a nice thought that makes you feel worse every time you look at it.
+>
+> Vision. Belief. Time. That's the whole formula. This handles the first two.
+>
+> **How long:** 45 to 90 minutes, depending on how honest you are. You can stop anywhere and pick it back up — I'll remember where we were. But do me one favor: don't do this in a parking lot between meetings. Sit somewhere quiet. Put the phone face down. This is the same amount of attention you'd give a session, because it is one.
+>
+> **How it works:** I ask one question at a time and I wait. You answer in whatever form comes out — bullet points, a paragraph, a rambling mess. Doesn't matter. I'll do the shaping. Your job is honesty, not eloquence.
+>
+> **One rule:** go bigger than feels comfortable. Every single person shrinks their answers on the first pass — it's automatic, it's your brain flagging unfamiliar as unsafe, and it's the single thing that ruins this exercise. If an answer feels a little embarrassing to say out loud, it's probably the right one.
+>
+> Last thing, and I mean this. Somewhere in the middle of this we're going to go after the stories you've been carrying. That part can crack something open. If it goes somewhere heavier than an exercise should hold — grief, something old, something you've never said out loud — tell me and we stop. No pushing through it, no finishing the worksheet. I'll point you to Brandon and to people better equipped than a document. That's not the process failing. That's the most useful thing that could happen today.
+>
+> Alright.
+>
+> Grab water. Get comfortable.
+>
+> Tell me when you're ready and we'll start with the vision.
 
-## OPENING MESSAGE
+**After they respond:** go to 01-sequence, Phase 1, and send the Phase 1 open. Not before.
 
-Hey — welcome. This is the 10.0 Process.
+If they respond with a question instead of "ready," answer it briefly and then ask again. If they respond with something heavy, the safety protocol fires — it applies on turn two the same as turn forty.
 
-Quick lay of the land before we start, because I don't want you walking in blind.
+---
 
-This is the Vision, Belief, and Standards piece of the program. I'm the mindset half. The neuro work — drills, protocols, anything about your pain specifically — that's with Brandon on your calls. Not here.
+## THE RE-ENTRY MESSAGE
 
-Here's how it runs: six parts, in order. **Vision → Belief → Identity → Standards → Goals → Affirmations.** I ask one question at a time. You answer. I turn it into a document you'll read every morning and every night for the rest of the program.
+For a returning client coming back mid-sequence. **Never make them re-explain themselves** — read back what you already have.
 
-Plan on 60–90 minutes. You don't have to do it in one sitting — stop whenever you need to, and your progress stays saved on this device. Foggy or hurting today? That's a legit reason to go slow.
+Fill both brackets from the actual session state before sending. If you genuinely can't tell where they stopped, ask plainly rather than guessing — a wrong recap is worse than a question.
 
-One thing I'll always put ahead of the exercise: if something comes up that's bigger than this — in your head or in your body — we stop and deal with that first. Every time.
+> Good — you came back. Most people don't, and that says something about you before we've even started today.
+>
+> Here's where we left it: **[one-line recap of what they've completed].**
+>
+> Next up is **[the phase they're entering].**
+>
+> Quick check before I fire off a question — do you want a two-minute recap of what you've built so far, or should we just pick up where we stopped?
 
-First question, and it's an easy one... what should I call you?
+**Recap format** if they want one: their vision in two or three lines, the beliefs they rewired, and anything from the manifesto that's already written. Their words, not a summary of the process.
 
-## RE-ENTRY MESSAGE
+**Do not re-send the opening message** to a returning client. They've read it.
 
-Welcome back{{name}}.
+---
 
-Last time you got through {{completed}}, and we stopped in **{{phase}}** — {{step}}. Everything you built is saved. You can see it under *Your document*.
+## STATE TO CARRY BETWEEN SESSIONS
 
-No need to re-explain anything. Take a breath, keep your drills close if you need them.
+To make re-entry work, keep track of:
 
-Ready to pick up where we left off?
+- Which R.E.S.P.E.C.T. domains have written paragraphs
+- Which beliefs went through the four questions, and the replacement belief for each
+- Whether the manifesto exists
+- Standards: the list, external structure, counts/doesn't-count, flare-day minimums
+- Goals by category
+- Whether the safety protocol fired, and on which branch — **if it did, open gently and check in on that before anything else**
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
@@ -916,8 +959,10 @@ Ready to pick up where we left off?
     const hit = parts.find(p => p.startsWith("## " + heading));
     return hit ? hit.replace(/^## .*\n/, "").trim() : "";
   }
-  const OPENING = h2Section(DOCS.opening, "OPENING MESSAGE");
-  const REENTRY = h2Section(DOCS.opening, "RE-ENTRY MESSAGE");
+  // 05: the verbatim messages are the "> " quoted lines under each heading.
+  const quoted = md => md.split("\n").filter(l => l.startsWith(">")).map(l => l.replace(/^> ?/, "")).join("\n").trim();
+  const OPENING = quoted(h2Section(DOCS.opening, "THE OPENING MESSAGE"));
+  const REENTRY = quoted(h2Section(DOCS.opening, "THE RE-ENTRY MESSAGE"));
 
   // 01-sequence split by phase so each call carries only what it needs.
   const SEQ_PARTS = DOCS.sequence.split(/\n(?=## )/);
@@ -935,7 +980,7 @@ Ready to pick up where we left off?
 
   // ---------- State ----------
   const fresh = () => ({
-    v: 1, name: "", phase: 0, step: "Opening", safety: "",
+    v: 1, name: "", phase: 0, step: "Opening", safety: "", safetyFired: [],
     turns: [{ role: "assistant", content: OPENING }],
     saves: {}, order: 0, doc: "", updatedAt: Date.now(),
   });
@@ -1030,15 +1075,26 @@ Ready to pick up where we left off?
   function addReentry() {
     const last = state.turns[state.turns.length - 1];
     if (state.turns.length < 2 || last.reentry || state.phase === 0 || state.phase >= 7) return;
-    const done = PHASES.slice(0, Math.max(0, state.phase - 1));
-    const completed = done.length ? done.join(", ") : "the opening";
     const text = REENTRY
-      .replace(/\{\{name\}\}/g, state.name ? ", " + state.name : "")
-      .replace(/\{\{completed\}\}/g, completed)
-      .replace(/\{\{phase\}\}/g, `Phase ${state.phase} · ${PHASES[state.phase - 1]}`)
-      .replace(/\{\{step\}\}/g, state.step || "right where you left it");
+      .replace("[one-line recap of what they've completed]", recapLine())
+      .replace("[the phase they're entering]", `Phase ${state.phase}, ${PHASES[state.phase - 1]}` + (state.step ? ` (${state.step})` : ""));
     state.turns.push({ role: "assistant", content: text, reentry: true });
     persist();
+  }
+
+  // One line built from what's actually been captured, never guessed.
+  function recapLine() {
+    const n = sec => Object.values(state.saves).filter(x => x.section === sec).length;
+    const v = n("vision"), b = n("belief"), st = n("standard"), g = n("goal");
+    const bits = [];
+    if (v) bits.push(v >= 7 ? "your full vision, all seven areas" : `${v} of the seven vision areas`);
+    if (b) bits.push(`${b} ${b === 1 ? "belief" : "beliefs"} through the four questions`);
+    if (n("manifesto")) bits.push("your manifesto");
+    if (st) bits.push(`${st} ${st === 1 ? "standard" : "standards"}`);
+    if (g) bits.push(`${g} of 3 goal sets`);
+    if (n("affirmations")) bits.push("your affirmations");
+    if (!bits.length) return "you'd read the opening and we'd just gotten into the vision";
+    return bits.length === 1 ? bits[0] : bits.slice(0, -1).join(", ") + " and " + bits[bits.length - 1];
   }
 
   // ---------- The coach prompt ----------
@@ -1076,13 +1132,13 @@ Re-using an id replaces the earlier version — use that for revisions. Never sa
   function buildRules() {
     const p = Math.min(Math.max(state.phase, 1), 6);
     const phaseText = [seqPhase(p), p < 6 ? seqPhase(p + 1) : ""].filter(Boolean).join("\n\n");
-    const pos = state.phase === 0 ? "The client is answering the opening question (their name). Your reply sends the Phase 1 open-with script and waits — do not ask Relationships & Romance in the same message."
+    const pos = state.phase === 0 ? "The client is replying to the opening message. If they're ready, send the Phase 1 open-with script and wait — do not ask Relationships & Romance in the same message. If they asked a question, answer it briefly and ask again whether they're ready (keep phase=\"1\" step=\"Opening\")."
       : state.phase >= 7 ? "All six phases are complete. If they want to change anything, help them revise it (re-save by id). Otherwise tell them to tap \"Build my Mind Movie\"."
       : `Phase ${p} (${PHASES[p - 1]}), step: ${state.step || "start of phase"}.`;
     return [
       `You are the 10.0 Transformation Coach for Evolved Athlete, running a live session with a client inside a chat page. Your operating manual follows; follow it exactly.`,
       `PAGE NOTES — these override anything in the manual about how the session starts or how the final document is delivered:
-- The page itself already sent the opening message (and, for a returning client, the re-entry message) — they appear as your earlier turns. Never re-send either one. The "05-opening-and-reentry" file lives in the page, not here.
+- The page itself already sent the 05 opening message (and, for a returning client, the 05 re-entry message, brackets filled) — they appear as your earlier turns. Never re-send either one.
 - One question per message, always.
 - Write in plain Markdown: short paragraphs, **bold** for emphasis, > blockquotes are fine. No headings except around the affirmation list.
 - When Phase 6 is done, don't paste the final assembled document into chat. The page builds it: tell the client to tap "Build my Mind Movie".
@@ -1090,9 +1146,12 @@ Re-using an id replaces the earlier version — use that for revisions. Never sa
 - Older turns may be trimmed from what you see. The CLIENT RECORD is the source of truth for everything already captured.`,
       PROTOCOL,
       `CURRENT POSITION: ${pos}`,
-      `CLIENT NAME: ${state.name || "(not given yet)"}`,
+      `CLIENT NAME: ${state.name || "(not given yet — ask for it naturally when you need it, at the latest for the Phase 3 manifesto)"}`,
+      (state.safetyFired || []).length ? `SAFETY HISTORY: the safety protocol fired earlier in this client's session (Branch ${state.safetyFired.join(" and ")}). If this is a returning client, open gently and check in on that before anything else.` : "",
+      state.turns.some(t => t.reentry) ? `RE-ENTRY: the page sent the 05 re-entry message. If they want the recap, give it in the 05 recap format from the CLIENT RECORD — their words, not a summary of the process.` : "",
       `CLIENT RECORD (captured earlier in this session, built from their words):\n${record()}`,
       `=== INSTRUCTIONS ===\n${DOCS.instructions}`,
+      `=== 05 — OPENING AND RE-ENTRY (both already sent by the page, verbatim) ===\n${DOCS.opening}`,
       `=== 03 — VOICE ===\n${DOCS.voice}`,
       `=== 01 — THE SEQUENCE (framing, edge cases, and the current and next phase) ===\n${SEQ_ALWAYS}\n\n${phaseText}`,
       p >= 3 ? `=== 02 — GOALS AND STANDARDS ===\n${DOCS.goals}` : "",
@@ -1134,6 +1193,8 @@ Re-using an id replaces the earlier version — use that for revisions. Never sa
       if (ctrl.state.step) state.step = ctrl.state.step;
       if (ctrl.state.name) state.name = ctrl.state.name;
       state.safety = ctrl.state.safety === "A" || ctrl.state.safety === "B" ? ctrl.state.safety : "";
+      state.safetyFired = state.safetyFired || [];
+      if (state.safety && !state.safetyFired.includes(state.safety)) state.safetyFired.push(state.safety);
     } else if (state.phase === 0) {
       state.phase = 1;
     }

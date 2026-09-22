@@ -253,8 +253,10 @@ button, textarea, input { font: inherit; color: inherit; }
     const hit = parts.find(p => p.startsWith("## " + heading));
     return hit ? hit.replace(/^## .*\n/, "").trim() : "";
   }
-  const OPENING = h2Section(DOCS.opening, "OPENING MESSAGE");
-  const REENTRY = h2Section(DOCS.opening, "RE-ENTRY MESSAGE");
+  // 05: the verbatim messages are the "> " quoted lines under each heading.
+  const quoted = md => md.split("\n").filter(l => l.startsWith(">")).map(l => l.replace(/^> ?/, "")).join("\n").trim();
+  const OPENING = quoted(h2Section(DOCS.opening, "THE OPENING MESSAGE"));
+  const REENTRY = quoted(h2Section(DOCS.opening, "THE RE-ENTRY MESSAGE"));
 
   // 01-sequence split by phase so each call carries only what it needs.
   const SEQ_PARTS = DOCS.sequence.split(/\n(?=## )/);
@@ -272,7 +274,7 @@ button, textarea, input { font: inherit; color: inherit; }
 
   // ---------- State ----------
   const fresh = () => ({
-    v: 1, name: "", phase: 0, step: "Opening", safety: "",
+    v: 1, name: "", phase: 0, step: "Opening", safety: "", safetyFired: [],
     turns: [{ role: "assistant", content: OPENING }],
     saves: {}, order: 0, doc: "", updatedAt: Date.now(),
   });
@@ -367,15 +369,26 @@ button, textarea, input { font: inherit; color: inherit; }
   function addReentry() {
     const last = state.turns[state.turns.length - 1];
     if (state.turns.length < 2 || last.reentry || state.phase === 0 || state.phase >= 7) return;
-    const done = PHASES.slice(0, Math.max(0, state.phase - 1));
-    const completed = done.length ? done.join(", ") : "the opening";
     const text = REENTRY
-      .replace(/\{\{name\}\}/g, state.name ? ", " + state.name : "")
-      .replace(/\{\{completed\}\}/g, completed)
-      .replace(/\{\{phase\}\}/g, `Phase ${state.phase} · ${PHASES[state.phase - 1]}`)
-      .replace(/\{\{step\}\}/g, state.step || "right where you left it");
+      .replace("[one-line recap of what they've completed]", recapLine())
+      .replace("[the phase they're entering]", `Phase ${state.phase}, ${PHASES[state.phase - 1]}` + (state.step ? ` (${state.step})` : ""));
     state.turns.push({ role: "assistant", content: text, reentry: true });
     persist();
+  }
+
+  // One line built from what's actually been captured, never guessed.
+  function recapLine() {
+    const n = sec => Object.values(state.saves).filter(x => x.section === sec).length;
+    const v = n("vision"), b = n("belief"), st = n("standard"), g = n("goal");
+    const bits = [];
+    if (v) bits.push(v >= 7 ? "your full vision, all seven areas" : `${v} of the seven vision areas`);
+    if (b) bits.push(`${b} ${b === 1 ? "belief" : "beliefs"} through the four questions`);
+    if (n("manifesto")) bits.push("your manifesto");
+    if (st) bits.push(`${st} ${st === 1 ? "standard" : "standards"}`);
+    if (g) bits.push(`${g} of 3 goal sets`);
+    if (n("affirmations")) bits.push("your affirmations");
+    if (!bits.length) return "you'd read the opening and we'd just gotten into the vision";
+    return bits.length === 1 ? bits[0] : bits.slice(0, -1).join(", ") + " and " + bits[bits.length - 1];
   }
 
   // ---------- The coach prompt ----------
@@ -413,13 +426,13 @@ Re-using an id replaces the earlier version — use that for revisions. Never sa
   function buildRules() {
     const p = Math.min(Math.max(state.phase, 1), 6);
     const phaseText = [seqPhase(p), p < 6 ? seqPhase(p + 1) : ""].filter(Boolean).join("\n\n");
-    const pos = state.phase === 0 ? "The client is answering the opening question (their name). Your reply sends the Phase 1 open-with script and waits — do not ask Relationships & Romance in the same message."
+    const pos = state.phase === 0 ? "The client is replying to the opening message. If they're ready, send the Phase 1 open-with script and wait — do not ask Relationships & Romance in the same message. If they asked a question, answer it briefly and ask again whether they're ready (keep phase=\"1\" step=\"Opening\")."
       : state.phase >= 7 ? "All six phases are complete. If they want to change anything, help them revise it (re-save by id). Otherwise tell them to tap \"Build my Mind Movie\"."
       : `Phase ${p} (${PHASES[p - 1]}), step: ${state.step || "start of phase"}.`;
     return [
       `You are the 10.0 Transformation Coach for Evolved Athlete, running a live session with a client inside a chat page. Your operating manual follows; follow it exactly.`,
       `PAGE NOTES — these override anything in the manual about how the session starts or how the final document is delivered:
-- The page itself already sent the opening message (and, for a returning client, the re-entry message) — they appear as your earlier turns. Never re-send either one. The "05-opening-and-reentry" file lives in the page, not here.
+- The page itself already sent the 05 opening message (and, for a returning client, the 05 re-entry message, brackets filled) — they appear as your earlier turns. Never re-send either one.
 - One question per message, always.
 - Write in plain Markdown: short paragraphs, **bold** for emphasis, > blockquotes are fine. No headings except around the affirmation list.
 - When Phase 6 is done, don't paste the final assembled document into chat. The page builds it: tell the client to tap "Build my Mind Movie".
@@ -427,9 +440,12 @@ Re-using an id replaces the earlier version — use that for revisions. Never sa
 - Older turns may be trimmed from what you see. The CLIENT RECORD is the source of truth for everything already captured.`,
       PROTOCOL,
       `CURRENT POSITION: ${pos}`,
-      `CLIENT NAME: ${state.name || "(not given yet)"}`,
+      `CLIENT NAME: ${state.name || "(not given yet — ask for it naturally when you need it, at the latest for the Phase 3 manifesto)"}`,
+      (state.safetyFired || []).length ? `SAFETY HISTORY: the safety protocol fired earlier in this client's session (Branch ${state.safetyFired.join(" and ")}). If this is a returning client, open gently and check in on that before anything else.` : "",
+      state.turns.some(t => t.reentry) ? `RE-ENTRY: the page sent the 05 re-entry message. If they want the recap, give it in the 05 recap format from the CLIENT RECORD — their words, not a summary of the process.` : "",
       `CLIENT RECORD (captured earlier in this session, built from their words):\n${record()}`,
       `=== INSTRUCTIONS ===\n${DOCS.instructions}`,
+      `=== 05 — OPENING AND RE-ENTRY (both already sent by the page, verbatim) ===\n${DOCS.opening}`,
       `=== 03 — VOICE ===\n${DOCS.voice}`,
       `=== 01 — THE SEQUENCE (framing, edge cases, and the current and next phase) ===\n${SEQ_ALWAYS}\n\n${phaseText}`,
       p >= 3 ? `=== 02 — GOALS AND STANDARDS ===\n${DOCS.goals}` : "",
@@ -471,6 +487,8 @@ Re-using an id replaces the earlier version — use that for revisions. Never sa
       if (ctrl.state.step) state.step = ctrl.state.step;
       if (ctrl.state.name) state.name = ctrl.state.name;
       state.safety = ctrl.state.safety === "A" || ctrl.state.safety === "B" ? ctrl.state.safety : "";
+      state.safetyFired = state.safetyFired || [];
+      if (state.safety && !state.safetyFired.includes(state.safety)) state.safetyFired.push(state.safety);
     } else if (state.phase === 0) {
       state.phase = 1;
     }
