@@ -1,0 +1,688 @@
+<title>10.0 Transformation Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --ground: #E9EDEA;
+  --surface: #F7F9F7;
+  --ink: #16201C;
+  --muted: #56635D;
+  --line: #C9D2CD;
+  --accent: #1E6B58;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #D3E6DF;
+  --brass: #8E6E1F;
+  --user-bubble: #DCE5E0;
+  --danger: #9E2B25;
+  --danger-bg: #F6E3E0;
+  --shadow: 0 1px 2px rgba(22,32,28,.06), 0 6px 18px rgba(22,32,28,.06);
+  --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0F1412; --surface: #171E1B; --ink: #E3EAE6; --muted: #93A29B; --line: #2B3632;
+    --accent: #5CC0A2; --accent-ink: #0A1411; --accent-soft: #1C3A31; --brass: #D3B25F;
+    --user-bubble: #1F2A26; --danger: #F0877D; --danger-bg: #2B1715;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0F1412; --surface: #171E1B; --ink: #E3EAE6; --muted: #93A29B; --line: #2B3632;
+  --accent: #5CC0A2; --accent-ink: #0A1411; --accent-soft: #1C3A31; --brass: #D3B25F;
+  --user-bubble: #1F2A26; --danger: #F0877D; --danger-bg: #2B1715;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: var(--ground); color: var(--ink);
+  font: 17px/1.6 var(--body);
+  padding-inline: 16px;
+}
+button, textarea, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.shell { max-width: 1120px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; }
+
+/* Header */
+.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 20px 12px; }
+.brand { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.brand .num { font: 700 44px/0.9 var(--display); letter-spacing: -0.01em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.brand .name { font: 600 22px/1 var(--display); text-transform: uppercase; letter-spacing: 0.06em; }
+.brand .by { width: 100%; font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); order: -1; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 6px;
+  padding: 8px 12px; font: 500 12px/1.2 var(--mono); letter-spacing: 0.04em; text-transform: uppercase;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn.danger { color: var(--danger); border-color: var(--danger); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* Phase track — the real six-phase order */
+.track { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding-block: 6px 4px; }
+.lane { border-top: 4px solid var(--line); padding-top: 6px; font: 600 13px/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lane b { font-family: var(--mono); font-weight: 500; font-size: 10px; margin-right: 4px; }
+.lane.done { border-color: var(--accent); color: var(--ink); }
+.lane.now { border-color: var(--brass); color: var(--ink); }
+.now-line { font: 400 12px/1.4 var(--mono); color: var(--muted); padding-block: 2px 12px; }
+.now-line strong { color: var(--ink); font-weight: 500; }
+
+/* Main */
+.main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; min-height: 0; }
+@media (max-width: 960px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+.chat { display: flex; flex-direction: column; gap: 18px; padding-bottom: 12px; }
+.msg { max-width: 68ch; }
+.msg.coach { padding: 18px 20px; background: var(--surface); border-radius: 4px 14px 14px 14px; box-shadow: var(--shadow); }
+.msg.coach .who { font: 500 10px/1 var(--mono); text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 8px; }
+.msg.client { align-self: flex-end; background: var(--user-bubble); padding: 12px 16px; border-radius: 14px 4px 14px 14px; white-space: pre-wrap; font-size: 16px; }
+.msg p { margin: 0 0 0.8em; }
+.msg p:last-child { margin-bottom: 0; }
+.msg blockquote { margin: 0 0 0.8em; padding-left: 14px; border-left: 3px solid var(--accent-soft); }
+.msg ul, .msg ol { margin: 0 0 0.8em; padding-left: 1.3em; }
+.msg h1, .msg h2, .msg h3 { font-family: var(--display); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.1; margin: 0.6em 0 0.4em; text-wrap: balance; }
+.msg code, .msg pre { font-family: var(--mono); font-size: 13px; }
+.msg pre { white-space: pre-wrap; background: var(--ground); padding: 10px; border-radius: 6px; overflow-x: auto; }
+.thinking { font: 400 13px/1.4 var(--mono); color: var(--muted); }
+.thinking::after { content: "…"; animation: dots 1.2s steps(3) infinite; display: inline-block; width: 1.2em; overflow: hidden; vertical-align: bottom; }
+@keyframes dots { from { width: 0 } to { width: 1.2em } }
+@media (prefers-reduced-motion: reduce) { .thinking::after { animation: none; } }
+.note { font: 400 12px/1.5 var(--mono); color: var(--muted); }
+.err { font: 400 13px/1.5 var(--mono); color: var(--danger); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.composer {
+  position: sticky; bottom: 0; background: var(--ground);
+  padding-block: 10px calc(12px + env(safe-area-inset-bottom, 0px));
+  display: grid; gap: 8px;
+}
+.composer .row { display: flex; gap: 8px; align-items: flex-end; }
+.composer textarea {
+  flex: 1; min-height: 52px; max-height: 40vh; resize: vertical;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  padding: 12px 14px; font-size: 16px; line-height: 1.45;
+}
+.composer textarea:focus { border-color: var(--accent); outline: none; }
+.composer .btn { padding: 14px 16px; }
+.unavail { padding: 14px 16px; border: 1px dashed var(--line); border-radius: 10px; font: 400 13px/1.5 var(--mono); color: var(--muted); }
+
+.safety-card { background: var(--danger-bg); border-radius: 10px; padding: 12px 16px; font-size: 15px; }
+.safety-card strong { color: var(--danger); }
+
+/* Built panel */
+.built { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); max-height: calc(100vh - 24px); overflow: auto; background: var(--surface); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+.built h2 { font: 700 20px/1 var(--display); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 4px; }
+.built .sub { font: 400 11px/1.4 var(--mono); color: var(--muted); margin-bottom: 12px; }
+.built details { border-top: 1px solid var(--line); padding-block: 8px; }
+.built summary { cursor: pointer; font: 600 15px/1.3 var(--display); text-transform: uppercase; letter-spacing: 0.05em; display: flex; justify-content: space-between; gap: 8px; }
+.built summary span { font: 400 11px/1.3 var(--mono); color: var(--muted); text-transform: none; letter-spacing: 0; }
+.built .item { font-size: 14px; line-height: 1.5; margin-top: 8px; }
+.built .item .t { font: 500 11px/1.3 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 2px; }
+.built .item .x { white-space: pre-wrap; }
+.built .empty { font-size: 14px; color: var(--muted); font-style: italic; }
+.built .build-cta { margin-top: 14px; width: 100%; padding: 12px; }
+@media (max-width: 960px) {
+  .built { position: static; max-height: none; }
+  .built[data-collapsed="true"] { display: none; }
+}
+@media (min-width: 961px) { #toggle-built { display: none; } }
+
+/* Menu confirmations */
+.confirm { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font: 400 12px/1.4 var(--mono); padding: 10px 12px; background: var(--danger-bg); border-radius: 8px; margin-bottom: 12px; }
+.toast { font: 400 12px/1.4 var(--mono); color: var(--accent); min-height: 1.4em; }
+
+/* Mind Movie document */
+.doc-view { background: var(--surface); border-radius: 12px; padding: 28px clamp(18px, 4vw, 48px); box-shadow: var(--shadow); margin-bottom: 24px; }
+.doc-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.doc { max-width: 68ch; }
+.doc h1 { font: 700 clamp(34px, 6vw, 52px)/0.95 var(--display); text-transform: uppercase; letter-spacing: 0.01em; margin: 0 0 16px; text-wrap: balance; }
+.doc h2 { font: 700 26px/1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; margin: 1.6em 0 0.5em; padding-top: 12px; border-top: 3px solid var(--accent); }
+.doc h3 { font: 600 19px/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.05em; margin: 1.2em 0 0.4em; }
+.doc pre { font: 400 13px/1.55 var(--mono); background: var(--ground); padding: 12px 14px; border-radius: 8px; white-space: pre-wrap; overflow-x: auto; }
+.doc blockquote { margin: 0 0 1em; padding-left: 14px; border-left: 3px solid var(--accent-soft); }
+.doc a { color: var(--accent); }
+
+.foot { font: 400 11px/1.6 var(--mono); color: var(--muted); padding-block: 16px 20px; border-top: 1px solid var(--line); margin-top: 8px; }
+.foot strong { color: var(--ink); font-weight: 500; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+
+<div class="shell">
+  <header class="top">
+    <div class="brand">
+      <span class="by">Evolved Athlete · Regulate phase</span>
+      <span class="num">10.0</span>
+      <span class="name">Transformation Coach</span>
+    </div>
+    <div class="tools">
+      <button class="btn" id="toggle-built" type="button">Your document</button>
+      <button class="btn" id="save-file" type="button">Save progress file</button>
+      <label class="btn" for="load-file">Load progress file</label>
+      <input class="sr" type="file" id="load-file" accept="application/json,.json">
+      <button class="btn" id="restart" type="button">Start over</button>
+    </div>
+  </header>
+
+  <div id="confirm-restart" class="confirm" hidden>
+    <span>This erases your answers on this device. Save a progress file first if you want them.</span>
+    <button class="btn danger" id="restart-yes" type="button">Erase and start over</button>
+    <button class="btn" id="restart-no" type="button">Keep going</button>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <nav class="track" id="track" aria-label="Session phases"></nav>
+  <div class="now-line" id="now-line"></div>
+
+  <section class="doc-view" id="doc-view" hidden>
+    <div class="doc-actions">
+      <button class="btn" id="doc-back" type="button">Back to the session</button>
+      <button class="btn primary" id="doc-dl-html" type="button">Download (printable)</button>
+      <button class="btn" id="doc-dl-md" type="button">Download (text)</button>
+      <button class="btn" id="doc-copy" type="button">Copy</button>
+      <button class="btn" id="doc-rebuild" type="button">Rebuild</button>
+    </div>
+    <div class="doc" id="doc"></div>
+  </section>
+
+  <div class="main" id="main">
+    <div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <div id="safety-slot"></div>
+        <div id="unavail" class="unavail" hidden>This coach runs on your own Claude account. Open this link in the Claude app or at claude.ai while signed in, and allow it to use Claude when asked.</div>
+        <div class="row">
+          <label class="sr" for="input">Your answer</label>
+          <textarea id="input" rows="2" placeholder="Type your answer…"></textarea>
+          <button class="btn primary" id="send" type="submit">Send</button>
+          <button class="btn" id="stop" type="button" hidden>Stop</button>
+        </div>
+        <div class="note">Enter sends · Shift+Enter for a new line · Progress saves on this device</div>
+      </form>
+    </div>
+
+    <aside class="built" id="built" data-collapsed="true" aria-label="Your document so far">
+      <h2>Your document</h2>
+      <div class="sub">Built from your words as you go.</div>
+      <div id="built-list"></div>
+      <button class="btn primary build-cta" id="build-doc" type="button" hidden>Build my Mind Movie</button>
+    </aside>
+  </div>
+
+  <footer class="foot">
+    <strong>Not an emergency service.</strong> Thinking about hurting yourself? Call or text <strong>988</strong> (US &amp; Canada) · Text <strong>HOME</strong> to <strong>741741</strong> · In danger, call <strong>911</strong>.
+    Pain questions and drills go to Brandon: skool.com/evolved · instagram.com/iambrandonday
+  </footer>
+</div>
+
+<script type="text/plain" id="doc-instructions"><!--DOC:INSTRUCTIONS.md--></script>
+<script type="text/plain" id="doc-sequence"><!--DOC:01-sequence.md--></script>
+<script type="text/plain" id="doc-goals"><!--DOC:02-goals-and-standards.md--></script>
+<script type="text/plain" id="doc-voice"><!--DOC:03-voice.md--></script>
+<script type="text/plain" id="doc-final"><!--DOC:04-final-output.md--></script>
+<script type="text/plain" id="doc-opening"><!--DOC:05-opening-and-reentry.md--></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  // ---------- Source documents ----------
+  const doc = id => document.getElementById(id).textContent.trim();
+  const DOCS = {
+    instructions: doc("doc-instructions"),
+    sequence: doc("doc-sequence"),
+    goals: doc("doc-goals"),
+    voice: doc("doc-voice"),
+    final: doc("doc-final"),
+    opening: doc("doc-opening"),
+  };
+
+  function h2Section(md, heading) {
+    const parts = md.split(/\n(?=## )/);
+    const hit = parts.find(p => p.startsWith("## " + heading));
+    return hit ? hit.replace(/^## .*\n/, "").trim() : "";
+  }
+  const OPENING = h2Section(DOCS.opening, "OPENING MESSAGE");
+  const REENTRY = h2Section(DOCS.opening, "RE-ENTRY MESSAGE");
+
+  // 01-sequence split by phase so each call carries only what it needs.
+  const SEQ_PARTS = DOCS.sequence.split(/\n(?=## )/);
+  const SEQ_ALWAYS = SEQ_PARTS.filter(p => !/^## PHASE \d/.test(p)).join("\n\n");
+  const seqPhase = n => SEQ_PARTS.find(p => p.startsWith("## PHASE " + n)) || "";
+  const GOALS_GATE = h2Section(DOCS.goals, "PART 5");
+
+  const PHASES = ["Vision", "Belief", "Identity", "Standards", "Goals", "Affirmations"];
+  const SECTIONS = [
+    ["vision", "Vision"], ["belief", "Beliefs"], ["manifesto", "Manifesto"],
+    ["standard", "Standards"], ["goal", "Goals"], ["affirmations", "Affirmations"],
+  ];
+  const MAX_BYTES = 60000;
+  const STORE_KEY = "ea-10-0-coach-v1";
+
+  // ---------- State ----------
+  const fresh = () => ({
+    v: 1, name: "", phase: 0, step: "Opening", safety: "",
+    turns: [{ role: "assistant", content: OPENING }],
+    saves: {}, order: 0, doc: "", updatedAt: Date.now(),
+  });
+  let state = load() || fresh();
+  let sample = null, downloads = null, busy = false, ctl = null;
+
+  function load() {
+    try {
+      const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+      return valid(s) ? s : null;
+    } catch { return null; }
+  }
+  function valid(s) { return s && s.v === 1 && Array.isArray(s.turns) && s.turns.length && typeof s.saves === "object"; }
+  function persist() {
+    state.updatedAt = Date.now();
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  // ---------- Rendering ----------
+  const $ = id => document.getElementById(id);
+  const md = t => (window.marked && window.DOMPurify)
+    ? DOMPurify.sanitize(marked.parse(t || "", { breaks: true }))
+    : basicMd(t);
+  // Fallback if the CDN libraries don't load: escaped paragraphs with bold/italic.
+  function basicMd(t) {
+    return esc(t || "").split(/\n{2,}/).map(p => "<p>" + p
+      .replace(/^&gt;\s?/gm, "")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.+?)\*/g, "<em>$1</em>")
+      .replace(/\n/g, "<br>") + "</p>").join("");
+  }
+  const visible = t => (t || "").split("<<<")[0].trim();
+
+  function renderTrack() {
+    $("track").innerHTML = PHASES.map((p, i) => {
+      const n = i + 1;
+      const cls = state.phase > n ? "done" : state.phase === n ? "now" : "";
+      return `<div class="lane ${cls}"><b>${n}</b>${p}</div>`;
+    }).join("");
+    const line = state.phase === 0 ? "Getting started"
+      : state.phase >= 7 ? "All six phases done — build your Mind Movie"
+      : `Phase ${state.phase} · <strong>${PHASES[state.phase - 1]}</strong>${state.step ? " — " + esc(state.step) : ""}`;
+    $("now-line").innerHTML = line;
+  }
+
+  function bubble(role, html) {
+    const el = document.createElement("div");
+    el.className = "msg " + (role === "assistant" ? "coach" : "client");
+    if (role === "assistant") {
+      el.innerHTML = `<div class="who">10.0 Coach</div><div class="body"></div>`;
+      el.querySelector(".body").innerHTML = html;
+    } else {
+      el.textContent = html;
+    }
+    $("chat").appendChild(el);
+    return el;
+  }
+
+  function renderChat() {
+    $("chat").innerHTML = "";
+    for (const t of state.turns) bubble(t.role, t.role === "assistant" ? md(t.content) : t.content);
+  }
+
+  function renderBuilt() {
+    const list = Object.entries(state.saves).map(([id, s]) => ({ id, ...s })).sort((a, b) => a.order - b.order);
+    const html = SECTIONS.map(([key, label]) => {
+      const items = list.filter(s => s.section === key);
+      if (!items.length) return "";
+      return `<details ${key === "vision" || items.length < 4 ? "open" : ""}><summary>${label}<span>${items.length}</span></summary>${
+        items.map(s => `<div class="item"><div class="t">${esc(s.title)}</div><div class="x">${esc(s.text)}</div></div>`).join("")
+      }</details>`;
+    }).join("");
+    $("built-list").innerHTML = html || `<div class="empty">Nothing yet. Each part lands here as you finish it.</div>`;
+    $("build-doc").hidden = !(state.phase >= 7 || state.doc);
+    $("build-doc").textContent = state.doc ? "Open my Mind Movie" : "Build my Mind Movie";
+  }
+
+  function renderSafety() {
+    $("safety-slot").innerHTML = state.safety === "A"
+      ? `<div class="safety-card"><strong>Right now, today:</strong> call or text <strong>988</strong> · text <strong>HOME</strong> to <strong>741741</strong> · in danger, <strong>911</strong>. Brandon: skool.com/evolved or instagram.com/iambrandonday.</div>`
+      : state.safety === "B"
+      ? `<div class="safety-card"><strong>Get it checked first.</strong> Then message Brandon what you told me: skool.com/evolved or instagram.com/iambrandonday.</div>`
+      : "";
+  }
+
+  function renderAll() { renderTrack(); renderChat(); renderBuilt(); renderSafety(); if (state.turns.length > 1) scrollDown(); }
+  function scrollDown() { requestAnimationFrame(() => window.scrollTo({ top: document.body.scrollHeight })); }
+  function esc(s) { return String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]); }
+  function toast(msg) { $("toast").textContent = msg; clearTimeout(toast.t); toast.t = setTimeout(() => ($("toast").textContent = ""), 4000); }
+
+  // ---------- Re-entry ----------
+  function addReentry() {
+    const last = state.turns[state.turns.length - 1];
+    if (state.turns.length < 2 || last.reentry || state.phase === 0 || state.phase >= 7) return;
+    const done = PHASES.slice(0, Math.max(0, state.phase - 1));
+    const completed = done.length ? done.join(", ") : "the opening";
+    const text = REENTRY
+      .replace(/\{\{name\}\}/g, state.name ? ", " + state.name : "")
+      .replace(/\{\{completed\}\}/g, completed)
+      .replace(/\{\{phase\}\}/g, `Phase ${state.phase} · ${PHASES[state.phase - 1]}`)
+      .replace(/\{\{step\}\}/g, state.step || "right where you left it");
+    state.turns.push({ role: "assistant", content: text, reentry: true });
+    persist();
+  }
+
+  // ---------- The coach prompt ----------
+  function record() {
+    const list = Object.entries(state.saves).map(([id, s]) => ({ id, ...s })).sort((a, b) => a.order - b.order);
+    if (!list.length) return "(nothing captured yet)";
+    return list.map(s => `[${s.section}] ${s.title} (id: ${s.id})\n${s.text}`).join("\n\n");
+  }
+
+  const PROTOCOL = `STATE PROTOCOL — the page reads this; the client never sees it.
+End EVERY reply with control blocks, after all client-facing text:
+
+<<<STATE phase="N" step="short label for where the client is now" name="client's name if known" safety="">>>
+
+- phase: the phase the client is in once they've read this message (1–6). If this message opens the next phase, use the next phase's number. Use 7 only when Phase 6 is finished and the Part 5 quality gate in 02 passes.
+- step: a few words, e.g. "Relationships & Romance", "Four Questions — belief 2", "Flare-day minimums".
+- safety: "A" or "B" when that branch of the safety protocol fires in this reply; otherwise leave it empty. Keep it set while you are still inside that branch.
+
+When you finalize a piece of material this turn, add one SAVE block per piece, after the STATE block:
+
+<<<SAVE id="vision-relationships" section="vision" title="Relationships & Romance">>>
+the finished text
+<<<END>>>
+
+Sections and ids:
+- vision — one per R.E.S.P.E.C.T. domain; ids vision-relationships, vision-exercise, vision-spirituality, vision-purpose, vision-education, vision-contribution, vision-time. Text = the present-tense paragraph you wrote.
+- belief — ids belief-1 … belief-5. Text = "Old: <their exact words>" / "Body: <where they felt it, if said>" / "New: <their empowering belief>".
+- manifesto — id manifesto. The full third-person manifesto.
+- standard — ids standard-1 …, one per standard, in the 04 format lines (STANDARD / Counts / Doesn't count / Who knows / Flare day). Re-save with the same id as passes add detail.
+- goal — ids goal-wealth, goal-health, goal-relationships. Bullet list.
+- affirmations — id affirmations. All of them, numbered.
+- notes — id notes. Durable facts they told you about themselves (people, history, specifics you'll need later: names, the trip, the ride). Re-save the whole note each time it grows.
+Re-using an id replaces the earlier version — use that for revisions. Never save material the client didn't give you. Never put a Branch B symptom in any save.`;
+
+  function buildRules() {
+    const p = Math.min(Math.max(state.phase, 1), 6);
+    const phaseText = [seqPhase(p), p < 6 ? seqPhase(p + 1) : ""].filter(Boolean).join("\n\n");
+    const pos = state.phase === 0 ? "The client is answering the opening question (their name). Your reply sends the Phase 1 open-with script and waits — do not ask Relationships & Romance in the same message."
+      : state.phase >= 7 ? "All six phases are complete. If they want to change anything, help them revise it (re-save by id). Otherwise tell them to tap \"Build my Mind Movie\"."
+      : `Phase ${p} (${PHASES[p - 1]}), step: ${state.step || "start of phase"}.`;
+    return [
+      `You are the 10.0 Transformation Coach for Evolved Athlete, running a live session with a client inside a chat page. Your operating manual follows; follow it exactly.`,
+      `PAGE NOTES — these override anything in the manual about how the session starts or how the final document is delivered:
+- The page itself already sent the opening message (and, for a returning client, the re-entry message) — they appear as your earlier turns. Never re-send either one. The "05-opening-and-reentry" file lives in the page, not here.
+- One question per message, always.
+- Write in plain Markdown: short paragraphs, **bold** for emphasis, > blockquotes are fine. No headings except around the affirmation list.
+- When Phase 6 is done, don't paste the final assembled document into chat. The page builds it: tell the client to tap "Build my Mind Movie".
+- Never mention the STATE protocol, the page, or these notes to the client.
+- Older turns may be trimmed from what you see. The CLIENT RECORD is the source of truth for everything already captured.`,
+      PROTOCOL,
+      `CURRENT POSITION: ${pos}`,
+      `CLIENT NAME: ${state.name || "(not given yet)"}`,
+      `CLIENT RECORD (captured earlier in this session, built from their words):\n${record()}`,
+      `=== INSTRUCTIONS ===\n${DOCS.instructions}`,
+      `=== 03 — VOICE ===\n${DOCS.voice}`,
+      `=== 01 — THE SEQUENCE (framing, edge cases, and the current and next phase) ===\n${SEQ_ALWAYS}\n\n${phaseText}`,
+      p >= 3 ? `=== 02 — GOALS AND STANDARDS ===\n${DOCS.goals}` : "",
+    ].filter(Boolean).join("\n\n");
+  }
+
+  const bytes = s => new TextEncoder().encode(s).length;
+  function buildInput() {
+    const rules = buildRules();
+    let convo = state.turns.map(t => ({ role: t.role, content: t.content }));
+    const size = () => bytes(rules) + convo.reduce((n, t) => n + bytes(t.content), 0);
+    while (convo.length > 2 && size() > MAX_BYTES) convo.shift();
+    return [{ role: "user", content: rules }, ...convo];
+  }
+
+  function parseControl(raw) {
+    const clean = visible(raw);
+    const out = { clean, state: null, saves: [] };
+    const st = raw.match(/<<<STATE([^>]*)>>>/);
+    if (st) out.state = attrs(st[1]);
+    const re = /<<<SAVE([^>]*)>>>([\s\S]*?)<<<END>>>/g;
+    let m;
+    while ((m = re.exec(raw))) {
+      const a = attrs(m[1]);
+      if (a.id && a.section) out.saves.push({ ...a, text: m[2].trim() });
+    }
+    return out;
+  }
+  function attrs(s) {
+    const o = {};
+    s.replace(/(\w+)="([^"]*)"/g, (_, k, v) => (o[k] = v));
+    return o;
+  }
+
+  function apply(ctrl) {
+    if (ctrl.state) {
+      const n = parseInt(ctrl.state.phase, 10);
+      if (n >= 1 && n <= 7) state.phase = n;
+      if (ctrl.state.step) state.step = ctrl.state.step;
+      if (ctrl.state.name) state.name = ctrl.state.name;
+      state.safety = ctrl.state.safety === "A" || ctrl.state.safety === "B" ? ctrl.state.safety : "";
+    } else if (state.phase === 0) {
+      state.phase = 1;
+    }
+    for (const s of ctrl.saves) {
+      const prev = state.saves[s.id];
+      state.saves[s.id] = { section: s.section, title: s.title || s.id, text: s.text, order: prev ? prev.order : ++state.order };
+    }
+    if (ctrl.saves.length) state.doc = ""; // material changed — the document needs a rebuild
+  }
+
+  // ---------- Talking to Claude ----------
+  const ERRORS = {
+    not_granted: "This page needs permission to use your Claude account. Reload and choose Allow when asked.",
+    sampling_disabled: "Claude isn't available on this account.",
+    rate_limited: "You've hit a usage limit. Give it a few minutes, then tap Try again.",
+    session_expired: "You've been signed out of Claude. Sign back in, then tap Try again.",
+    prompt_too_large: "The session got too long to send. Save a progress file and tell Brandon.",
+    refused: "That message couldn't be answered. Try rephrasing it.",
+  };
+  const FATAL = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+
+  function setBusy(on) {
+    busy = on;
+    $("send").disabled = on || !sample;
+    $("stop").hidden = !on;
+    $("input").disabled = !sample;
+    $("save-file").disabled = on; $("restart").disabled = on;
+  }
+
+  async function runCoach() {
+    if (!sample || busy) return;
+    setBusy(true);
+    const el = bubble("assistant", `<span class="thinking">Thinking</span>`);
+    const body = el.querySelector(".body");
+    scrollDown();
+    ctl = new AbortController();
+    try {
+      const res = await sample(buildInput(), {
+        cache: false, signal: ctl.signal, modelTier: "default",
+        onText: ({ text }) => { const v = visible(text); if (v) body.innerHTML = md(v); },
+      });
+      const ctrl = parseControl(res.text);
+      state.turns.push({ role: "assistant", content: ctrl.clean });
+      apply(ctrl);
+      persist();
+      renderAll();
+      if (res.truncated) toast("That reply got cut short — ask the coach to continue.");
+    } catch (e) {
+      const code = e && e.code;
+      if (e && e.text && code !== "refused") body.innerHTML = md(visible(e.text));
+      else el.remove();
+      if (code === "cancelled") { if (!e.text) el.remove(); showRetry("Stopped."); }
+      else if (FATAL.includes(code)) { sample = null; showUnavailable(); }
+      else showRetry(ERRORS[code] || "Connection dropped before the reply finished.");
+    } finally {
+      setBusy(false);
+      ctl = null;
+    }
+  }
+
+  function showRetry(msg) {
+    const box = document.createElement("div");
+    box.className = "err";
+    box.innerHTML = `<span>${esc(msg)}</span>`;
+    const b = document.createElement("button");
+    b.className = "btn"; b.type = "button"; b.textContent = "Try again";
+    b.onclick = () => { box.remove(); renderChat(); runCoach(); };
+    box.appendChild(b);
+    $("chat").appendChild(box);
+    scrollDown();
+  }
+
+  function showUnavailable() { $("unavail").hidden = false; setBusy(false); }
+
+  function send(text) {
+    text = text.trim();
+    if (!text || busy || !sample) return;
+    state.turns.push({ role: "user", content: text });
+    persist();
+    $("input").value = "";
+    renderChat();
+    runCoach();
+  }
+
+  // ---------- Mind Movie assembly ----------
+  function assemblyPrompt() {
+    return [
+      `You are assembling a client's final 10.0 Mind Movie document for Evolved Athlete. Use ONLY the client record below — every word must trace back to it. Do not invent people, places, goals, or details.`,
+      `Output the complete document in Markdown, in this exact order:
+# The 10.0 Mind Movie — ${state.name || "[name]"}
+## 1. Vision Image Prompts — 20 prompts, 2–3 per R.E.S.P.E.C.T. domain, grouped under ### domain headings, each specific to what they said.
+## 2. Personal Manifesto — the manifesto from the record, as written.
+## 3. Routines & Standards — every standard in the fenced code block format from 04 (STANDARD / Counts / Doesn't count / Who knows / Flare day), one block per standard.
+## 4. Goals — ### Wealth, ### Health, ### Relationships.
+## 5. Affirmations — all of them, numbered, as written in the record.
+## 6. Your Lock Screen — then the build instructions from 04, adapted only where needed to read as a document, ending with the "To the journey. — B-Day" sign-off.`,
+      `Before writing, run the Part 5 quality gate. If the record is missing something the gate requires, do NOT write the document. Reply with a line starting "MISSING:" and then a short message to the client in the coach's voice naming what's missing and asking the ONE question that fills the first gap.`,
+      `No pain ratings, pain-free dates or symptom scores anywhere. No affirmation asserting the absence of a symptom.`,
+      `=== 04 — FINAL OUTPUT ===\n${DOCS.final}`,
+      `=== 02 PART 5 — QUALITY GATE ===\n${GOALS_GATE}`,
+      `=== 03 — VOICE ===\n${DOCS.voice}`,
+      `=== CLIENT RECORD ===\nName: ${state.name || "(not given)"}\n\n${record()}`,
+    ].join("\n\n");
+  }
+
+  async function buildDoc(force) {
+    showDoc(true);
+    if (state.doc && !force) { $("doc").innerHTML = md(state.doc); return; }
+    if (!sample || busy) { $("doc").innerHTML = `<p class="note">The coach isn't available in this view.</p>`; return; }
+    setBusy(true);
+    $("doc").innerHTML = `<p class="thinking">Assembling your Mind Movie — this takes a minute or two</p>`;
+    ctl = new AbortController();
+    try {
+      const res = await sample(assemblyPrompt(), {
+        cache: false, signal: ctl.signal, modelTier: "default",
+        onText: ({ text }) => { if (!/^\s*MISSING:/.test(text)) $("doc").innerHTML = md(text); },
+      });
+      const text = res.text.trim();
+      if (/^MISSING:/.test(text)) {
+        state.phase = 6; state.step = "Filling a gap before the final document";
+        state.turns.push({ role: "assistant", content: text.replace(/^MISSING:\s*/, "") });
+        persist(); showDoc(false); renderAll();
+        return;
+      }
+      state.doc = text;
+      persist();
+      $("doc").innerHTML = md(text);
+      renderBuilt();
+      if (res.truncated) toast("The document got cut short — tap Rebuild.");
+    } catch (e) {
+      $("doc").innerHTML = `<p class="err">${esc(ERRORS[e && e.code] || "The build didn't finish. Tap Rebuild to try again.")}</p>`;
+    } finally { setBusy(false); ctl = null; }
+  }
+
+  function showDoc(on) {
+    $("doc-view").hidden = !on;
+    $("main").hidden = on;
+    if (on) window.scrollTo({ top: 0 });
+  }
+
+  function printableHtml() {
+    return `<!doctype html><html><head><meta charset="utf-8"><title>10.0 Mind Movie — ${esc(state.name)}</title>
+<style>body{font:12pt/1.55 Georgia,serif;color:#111;max-width:7in;margin:0.6in auto;padding:0 16px}
+h1{font:700 30pt/1 "Arial Narrow",Arial,sans-serif;text-transform:uppercase}
+h2{font:700 17pt/1.1 "Arial Narrow",Arial,sans-serif;text-transform:uppercase;border-top:3px solid #1E6B58;padding-top:8px;margin-top:28px;page-break-before:always}
+h2:first-of-type{page-break-before:auto}h3{font:700 12pt Arial,sans-serif;text-transform:uppercase}
+pre{font:10pt/1.5 Menlo,monospace;white-space:pre-wrap;background:#f2f4f2;padding:10px;page-break-inside:avoid}</style>
+</head><body>${md(state.doc)}</body></html>`;
+  }
+
+  async function offer(filename, data) {
+    if (!downloads) { toast("Downloads aren't available here — use Copy instead."); return; }
+    try { await downloads.save({ filename, data }); toast("Saved."); }
+    catch (e) { if (e && e.code !== "declined") toast("Couldn't save the file here — use Copy instead."); }
+  }
+  const slug = () => (state.name || "client").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "client";
+
+  // ---------- Wiring ----------
+  $("composer").addEventListener("submit", e => { e.preventDefault(); send($("input").value); });
+  $("input").addEventListener("keydown", e => {
+    if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); send($("input").value); }
+  });
+  $("stop").onclick = () => ctl && ctl.abort();
+  $("toggle-built").onclick = () => {
+    const b = $("built"); b.dataset.collapsed = b.dataset.collapsed === "true" ? "false" : "true";
+    if (b.dataset.collapsed === "false") b.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  $("restart").onclick = () => { $("confirm-restart").hidden = false; };
+  $("restart-no").onclick = () => { $("confirm-restart").hidden = true; };
+  $("restart-yes").onclick = () => {
+    state = fresh(); persist(); $("confirm-restart").hidden = true; showDoc(false); renderAll(); toast("Fresh start.");
+  };
+  $("save-file").onclick = () => offer(`10-0-progress-${slug()}.json`, JSON.stringify(state, null, 1));
+  $("load-file").addEventListener("change", e => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const s = JSON.parse(r.result);
+        if (!valid(s)) throw 0;
+        state = s; addReentry(); persist(); showDoc(false); renderAll(); toast("Progress loaded.");
+      } catch { toast("That file isn't a 10.0 progress file."); }
+      e.target.value = "";
+    };
+    r.readAsText(f);
+  });
+  $("build-doc").onclick = () => buildDoc(false);
+  $("doc-back").onclick = () => { showDoc(false); scrollDown(); };
+  $("doc-rebuild").onclick = () => buildDoc(true);
+  $("doc-dl-md").onclick = () => offer(`10-0-mind-movie-${slug()}.md`, state.doc);
+  $("doc-dl-html").onclick = () => offer(`10-0-mind-movie-${slug()}.html`, printableHtml());
+  $("doc-copy").onclick = async () => {
+    try { await navigator.clipboard.writeText(state.doc); toast("Copied."); }
+    catch {
+      const range = document.createRange(); range.selectNodeContents($("doc"));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      toast("Selected — press Ctrl/Cmd+C to copy.");
+    }
+  };
+
+  // ---------- Boot ----------
+  addReentry();
+  renderAll();
+  setBusy(false);
+  $("send").disabled = true;
+  const use = window.claude && window.claude.use ? window.claude.use.bind(window.claude) : null;
+  if (!use) { showUnavailable(); return; }
+  use("sample").then(s => {
+    sample = s || null;
+    if (!sample) showUnavailable(); else setBusy(false);
+  }, () => showUnavailable());
+  use("downloads").then(d => { downloads = d || null; }, () => {});
+})();
+</script>
