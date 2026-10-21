@@ -25,7 +25,7 @@
   - eating-disorder history
   - large calorie increases in a medically complex client
 - **Go slowly.** This is the book's own #1 rule: make one or two changes at a time. Adding food, sugar, salt or fat too fast causes weight gain, water retention or digestive upset.
-- **Source gaps.** The text this file was built from was missing many bulleted lists, including every recipe's directions. Where a list was lost it is marked *[not in source]*. Recipe methods marked *(method reconstructed)* are standard preparations, not the author's wording.
+- **Source.** This file was built from a text copy of the book and checked against the ebook. All lists and recipe directions come from the ebook.
 
 ---
 
@@ -142,7 +142,21 @@ These come from Barnes and the author:
 - Gains weight easily, loses it with difficulty; muscle loss with fat gain
 
 Even a few of these may point to a depressed metabolism. The author argues that lifestyle, stress and diet matter more than age.
-*[The book's self-assessment questionnaire is not in the source.]*
+
+**The book's self-assessment questions** (useful as client intake questions):
+1. What is your body temperature? Do you feel cold all the time: cold hands, feet, nose?
+2. What is your resting pulse?
+3. How often do you urinate per day? Do you have chronic thirst?
+4. How often do you have a bowel movement? Constipation, bloating, gas, diarrhea?
+5. What does your stool look like? Runny, pebbles, smelly, undigested food?
+6. How is your sleep? Restless, interrupted, exhausted on waking?
+7. How are your skin, hair and nails? Dry, brittle, slow-growing? Do you heal slowly?
+8. How are your hormones? Low libido, PMS, infertility?
+9. How is your energy? Dragging, highs and lows, mid-day crash, wired at night?
+10. How is your mood? Anxious, depressed, irritable, sad?
+11. Do you get sick often, or never?
+12. Do you gain weight easily? Any edema (water retention)?
+13. Is it hard to lose weight even with diet and exercise?
 
 ### 2.3 Home tests (guides, not diagnoses)
 
@@ -164,12 +178,36 @@ Even a few of these may point to a depressed metabolism. The author argues that 
 **Post-meal check**
 - Measure temperature and pulse **on waking** and again **20–30 minutes after each meal**.
 - A supportive meal should raise both, and the person should feel **warm, alert and content**.
+- **How to read post-meal changes in a stressed or hypometabolic person:**
+
+| Before the meal | After the meal | What it means |
+|---|---|---|
+| Warm | Temperature and pulse **fall** | The earlier warmth came from adrenaline and cortisol. Sugar and salt lowered the stress hormones, so readings dropped. |
+| — | Temperature **unchanged** | The meal was probably too small or had the wrong macro ratio. |
+| Pulse already **>100** | Pulse rises further | Probably too much protein relative to carbs (e.g. eggs alone). That raises insulin, then adrenaline. |
+| Pulse **<70** | Pulse rises | Good meal. Thyroid output may have increased. |
+| Pulse **>100**, temperature **<97.8 °F** | Temperature rises, pulse falls | Good meal. Stress hormones dropped and heat production rose. |
+| Pulse **<70**, temperature **<97.8 °F** | Both rise | Good meal. |
+
+These readings are feedback, not exact science.
 
 **Post-workout check**
 - If temperature and pulse drop after training, the workout suppressed the thyroid: it was too long, too hard or too intense.
 - Fix: shorten the session, rest more, or lower the intensity.
 
-### 2.4 The log (the book's "single most useful step")
+### 2.4 Thyroid lab tests (the book's notes, for discussion with a provider)
+- **TSH** is a pituitary hormone, not a thyroid hormone.
+  - Many people have normal TSH but show low-thyroid signs. This is called "subclinical hypothyroidism."
+  - Stress, infection, fever and caffeine can suppress TSH, making it read "normal."
+- **Other tests the book suggests asking about:**
+  - **Total T4 and Total T3:** bound plus unbound hormone.
+  - **Free T3 and Free T4:** unbound hormone. Low levels suggest an underactive thyroid.
+  - **Anti-TPO and anti-Tg antibodies:** high levels suggest autoimmune thyroid disease (Hashimoto's or Graves').
+  - **Reverse T3 (RT3):** an inactive form made from T4 under stress, which lowers active T3. The **T3/RT3 ratio** shows how much active thyroid hormone is being used.
+- About 80% of T4 is converted to the more active T3 in the liver, kidneys, pituitary and spleen.
+- The coach should not interpret labs. Encourage the client to ask their provider for the tests they want.
+
+### 2.5 The log (the book's "single most useful step")
 - Record each day:
   - meal times, amounts and macros
   - temperature and pulse (waking and after meals)
@@ -360,6 +398,16 @@ With gut problems, **eat less fiber, not more.**
 ### 6.1 Saturated fats: the preferred fats
 - Saturated fats have single carbon bonds, so they are stable: **no rancidity or breakdown with heat or oxygen**. Cook with them.
 - Fat should be **about 20–30% of calories**, mostly saturated. Eat them in moderation, not a stick of butter in a night.
+- **Claimed benefits of saturated fats:**
+  - resist oxidation, which lowers the need for antioxidants and cancer risk
+  - less inflammatory than unsaturated fats when built into cells
+  - boost metabolism, especially coconut oil
+  - slow carbohydrate absorption, which helps regulate blood sugar
+  - carry the fat-soluble vitamins A, D and K2
+  - help detoxify and protect the liver, kidneys and pancreas
+  - protect the heart
+  - lower gut endotoxin (LPS), which improves digestion
+  - make food taste better
 - The book's evidence, in brief:
   - It critiques Ancel Keys's Seven Countries work as cherry-picked.
   - Framingham: 50% of heart-attack patients had low cholesterol.
@@ -497,6 +545,16 @@ These are high in muscle meat and egg whites and are released when muscle breaks
 - **Hydrolyzed (collagen hydrolysate):** dissolves in cold liquid and **does not thicken**. Best for OJ, smoothies, coffee and workout drinks.
 - Gelatin is **not a complete protein** and not ideal for muscle building. For muscle gain, use dairy, eggs, fish, shellfish and meat.
 
+**Benefits the book links to gelatin:**
+- improved digestion, more gastric juices, and healing of the gut lining (ulcer protection)
+- less joint inflammation; help with arthritis
+- better sleep and memory
+- better insulin sensitivity and steadier blood glucose; help with diabetes
+- muscle sparing
+- fewer allergies
+- better wound healing and liver detox
+- healthier skin, hair and nails
+
 **Glycine** (abundant in gelatin) is used for:
 - glutathione, creatine and bile salts
 - liver recovery
@@ -511,7 +569,13 @@ Get it from food, not isolated glycine supplements.
   - high phosphorus-to-calcium ratio, which raises PTH and pulls calcium from bone
   - conventional meat is grain- and soy-fed, with antibiotics and hormones
 - **Poultry and pork** are non-ruminants, so their fat carries more PUFA. Pasture-raised is better than organic, because organic birds still eat corn and soy. The author eats chicken about once a month.
-- **Grass-fed ruminants** (beef, bison, lamb) are preferred, but still in moderation.
+- **Grass-fed ruminants** (beef, bison, lamb) are preferred, but still in moderation. Compared with grain-fed, grass-fed beef has:
+  - less total fat
+  - more beta-carotene and vitamin E
+  - more thiamin and riboflavin
+  - more calcium, potassium, magnesium, selenium and iron
+  - less omega-6, for a more even omega-3:omega-6 ratio
+  - more CLA
 - **Frequency:**
   - Healthy: **2–3×/week** (Ch. 10). Appendix B says **1×/week or less** if inflamed.
   - **Hypometabolic, diabetes, arthritis/autoimmune, gout, cancer or other inflammatory disease:** eliminate muscle meat or save it for special occasions until health improves.
@@ -528,6 +592,10 @@ Get it from food, not isolated glycine supplements.
   - heavy metals (Consumer Reports, 2010: all 15 products tested had at least one)
   - unlabeled MSG
 - **Whey:** a cheese-making by-product. It lacks milk's protective factors, is high in tryptophan, and its cholesterol oxidizes when heated.
+- **If a client insists on whey:**
+  1. Buy grass-fed or organic. Otherwise it likely comes from rBGH-treated cows.
+  2. Choose raw, low-heat or cold-processed whey.
+  3. Choose one with no added sweeteners, additives, vitamins or artificial flavors.
 - **Rice, hemp, soy and pea protein:** not recommended. You'd need about 2× the serving.
 - **Only recommended powder:** hydrolyzed collagen or gelatin from **Great Lakes Gelatin**.
 - **Artificial sweeteners** (aspartame, sucralose, saccharin) are to be avoided. **Stevia** is the least bad, but protein + stevia without sugar still triggers a stress response. **Add real sugar to shakes.**
@@ -541,7 +609,24 @@ Get it from food, not isolated glycine supplements.
   - lectins and trypsin inhibitors
   - 25 g of protein from nuts costs about 600 kcal
 - Raw nuts are hard to digest. Oil-roasted nuts add PUFA. Dry-roasted is a compromise.
-- **Frequency:** **1–2×/month** if desired, more only with good gut health. Lightly roasted, soaked or sprouted macadamia, hazelnut or cashew are best.
+- **PUFA ranking, worst → best:**
+  1. walnuts
+  2. sunflower seeds
+  3. flax seeds
+  4. chia seeds
+  5. sesame seeds
+  6. pecans
+  7. Brazil nuts
+  8. pistachios
+  9. almonds
+  10. hazelnuts
+  11. cashews
+  12. macadamia nuts
+- **If a client still wants nuts:**
+  1. Eat organic.
+  2. Soak or sprout them, to reduce trypsin inhibitors, phytates and lectins.
+  3. Eat in moderation: 1–2×/week, not daily (Ch. 11). Appendix B says 1–2×/month while healing.
+  4. Choose the lowest-PUFA nuts: hazelnuts, macadamias, cashews.
 - **Snack swap:** Parmesan or ricotta + fruit instead of nuts.
 - Nuts are not a protein source.
 
@@ -582,6 +667,30 @@ Get it from food, not isolated glycine supplements.
 
 Plus **2 raw carrots a day** (§11.2).
 
+### 7.9 Estrogen dominance
+- The term comes from Dr. John Lee: estrogen is high relative to progesterone. He considered a healthy ratio to be 50–100× more progesterone than estrogen.
+- **Causes:**
+  - high estrogen production
+  - estrogenic foods and xenoestrogens
+  - poor liver clearance of estrogen
+  - low progesterone
+- **Signs (men and women):**
+  - fat gain, edema
+  - hot flashes, PMS
+  - depression, low energy, foggy thinking, memory loss
+  - hypoglycemia
+  - sleep issues
+  - osteoporosis
+  - cancer
+- **The book's steps to lower estrogenic load** (it says to talk to a provider first):
+  1. Remove estrogenic foods: soy, PUFA, alcohol.
+  2. Reduce xenoestrogens: plastics, and lotions, makeup and soaps containing phytoestrogens.
+  3. Reduce radiation: x-rays, cell phones, microwaves, wireless devices.
+  4. Eat a thyroid-supportive diet.
+  5. Reduce stress.
+  6. Come off birth control, ERT or HRT. **Only with the doctor's approval.**
+  7. Eat 1–2 raw carrots a day (§11.2).
+
 ---
 
 ## 8. Dairy (the book's "perfect food")
@@ -597,10 +706,15 @@ Plus **2 raw carrots a day** (§11.2).
   - High-phosphorus, low-calcium foods to limit: muscle meat, grains, soy, seeds, Brazil nuts, colas.
 - **Associations cited:** better bone density, lower body fat and better body composition, lower blood pressure, less metabolic syndrome, and an inverse link with colon and breast cancer.
 
-### 8.2 Choosing milk (best → acceptable)
-1. **Raw organic pastured milk**, where legal and tolerated
-2. **Organic pastured, non-homogenized, additive-free whole milk**
-3. Organic pastured pasteurized milk. Ultra-pasteurized is fine for guts that don't tolerate raw.
+### 8.2 Choosing milk: the book's order of preference (all grass-fed, organic, no additives)
+
+**General health**
+1. Raw whole milk (non-pasteurized, non-homogenized), where legal and tolerated
+2. Pasteurized, **non-homogenized** whole milk
+3. Pasteurized, homogenized whole milk
+4. Pasteurized, homogenized 2% or 1% milk
+
+Pasteurized or ultra-pasteurized milk is fine for guts that don't tolerate raw milk.
 
 - Avoid:
   - **carrageenan** (in many low-fat, chocolate and plant milks)
@@ -617,8 +731,8 @@ Plus **2 raw carrots a day** (§11.2).
 | Goal | Recommendation |
 |---|---|
 | General health | Least processed, whole, organic pastured milk |
-| Post-workout | **Lower-fat milk + sugar, honey or cacao.** Fat slows glycogen refill; chocolate milk is well supported for recovery. |
-| Fat loss | **3–4 cups/day of full-fat milk can stall fat loss.** Use additive-free 1–2% milk. |
+| Post-workout | **1–2% milk + sugar, honey or cacao.** Non-homogenized first, then homogenized. Fat slows glycogen refill; chocolate milk is well supported for recovery. |
+| Fat loss | **3–4 cups/day of full-fat milk can stall fat loss.** Use 1–2% milk: non-homogenized first, then homogenized. |
 
 ### 8.4 Lactose-intolerance reintroduction protocol
 The book attributes much intolerance to small-intestine damage from grains, PUFA, alcohol, drugs and additives, which lowers lactase.
@@ -633,7 +747,12 @@ The book attributes much intolerance to small-intestine damage from grains, PUFA
 A survey cited in the book: 81% of self-reported lactose-intolerant people had no symptoms on raw milk.
 
 ### 8.5 Cheese and yogurt
-- **Cheese:** choose the fewest ingredients. Avoid GMO cultures and rennet, cellulose, coloring, "natural flavors," gums and added whey. Favored: **Parmigiano-Reggiano and ricotta**. *[The book's "top four cheeses" list is not in the source.]*
+- **Cheese:** choose the fewest ingredients. Avoid GMO cultures and rennet, cellulose, coloring, "natural flavors," gums and added whey.
+- **The book's top four cheeses:**
+  1. **Organic ricotta:** skim milk, salt, vinegar.
+  2. **Parmigiano-Reggiano:** milk, salt, animal rennet.
+  3. **Mascarpone:** heavy cream, lemon juice.
+  4. **Cottage cheese:** whole milk, cream, skim milk, salt, cultures. It must be free of carrageenan and gums. Rinse the curds if sensitive to lactic acid.
 - **Yogurt:** fine in small amounts but not a main protein or calcium source.
   - Per Peat, its lactic acid burdens the liver.
   - Not for people who are hypoglycemic, hypometabolic or have an overloaded liver.
@@ -725,7 +844,23 @@ A survey cited in the book: 81% of self-reported lactose-intolerant people had n
 - Used in cases of estrogen dominance, soy history and gut issues.
 
 ### 11.3 Salt
-- **Claimed benefits:** lowers stress hormones and inflammation, raises metabolic rate and heat, helps sleep, improves muscle function, and helps wound healing.
+- **Claimed benefits:**
+  - reduces inflammation and cramping
+  - helps magnesium absorption
+  - suppresses aldosterone and supports the thyroid
+  - improves insulin sensitivity
+  - raises metabolic rate and body heat
+  - relieves constipation
+  - improves sleep
+  - helps wound healing
+- **The RAAS mechanism, as the book explains it:**
+  - Three things switch on the renin–angiotensin–aldosterone system: **low blood pressure** (below about 90/60), **stress** (sympathetic activation), and **low salt**. High salt does not.
+  - Angiotensin II then raises blood pressure four ways:
+    1. constricts arteries
+    2. releases ADH, so the body retains water
+    3. makes the kidneys reabsorb sodium
+    4. releases aldosterone, which retains sodium, loses potassium and causes edema
+  - The system normally switches itself off. Chronic stress keeps it on, which the book calls the real driver of hypertension.
 - **The book's argument against restriction:**
   - Low salt raises noradrenaline and activates the RAAS.
   - Studies cited: Alderman (1995 and 1998), a Belgian study (2011), and NEJM 2014 with more than 100,000 people.
@@ -806,15 +941,23 @@ A survey cited in the book: 81% of self-reported lactose-intolerant people had n
 ## 12. Hydration
 
 - **Drink to thirst.** The book rejects "8 glasses," "1 gallon" or "half your body weight."
-- **Overhydration** without electrolytes dilutes sodium. Effects:
-  - frequent clear urination (the author goes 5–6×/day; an overhydrated friend went about 20×)
-  - bloating, night urination, headaches, cramps, feeling cold
-  - stress on the thyroid
+- **Overhydration** without electrolytes dilutes sodium. In extreme cases it causes headaches, confusion, vomiting, cramping and fainting, and it stresses the thyroid.
+- **The book's 5 signs of overhydrating:**
+  1. **Urinating every hour, or more than 5 times a day.** Normal is about 4–5 times a day, sleeping through the night.
+  2. **Clear urine.** Urine should be yellow. Pale or clear means electrolytes are being diluted.
+  3. **Waking at night to urinate.**
+  4. **Feeling cold**, especially hands and feet.
+  5. **Constant thirst.** This usually means the body needs more salt and sugar, not more water.
 - **Fix:** shift fluid toward **mineral-rich drinks** (milk, OJ, bone broth, coconut water) and reduce plain water. Thirst and bathroom trips usually drop.
 - **Heat, humidity and exercise:**
   - Drink more, but add **salt and sugar** (and magnesium, calcium and potassium).
   - Replacing sweat with plain water risks **hyponatremia**. In a Boston Marathon study, 13% of finishers were hyponatremic; risk factors were >3 L of fluid and a ~4-hour finish.
-- *[The book's 5 overhydration symptoms and its water guidelines list are not in the source.]*
+- **The book's basic water guidelines:**
+  1. Drink when thirsty.
+  2. Drink more in dry, hot or humid weather, and add salt and sugar to fluids.
+  3. Favor fluids that carry salt, minerals and sugar: milk, OJ, bone broth, Kate's Miracle Drink.
+  4. Eat water-rich foods, especially fruit, and salt them.
+  5. If cold, tired and hypometabolic, eat more calorie-rich salty-sweet foods (like cheese and fruit) and **drink less water**.
 
 ---
 
@@ -839,13 +982,24 @@ The body adds all stressors together: diet, training, work, relationships. "A go
   2. Blood sugar falls overnight.
   3. Adrenaline and cortisol rise.
   4. The person wakes, often around 2–4 am, or can't fall asleep.
-- **Bedtime snack protocol** (eat before bed; also usable on night waking):
-  - 8 oz milk + 1 Tbsp honey + pinch of salt, **or**
-  - 6 oz OJ + pinch of salt + 1 Tbsp hydrolyzed gelatin, **or**
-  - 8 oz warm bone broth + salt + ½ cup fruit, **or**
-  - 4 oz milk + 4 oz OJ + ½ Tbsp gelatin + salt
 - A steady flow of sugar, protein, fat and salt through the day lowers evening stress hormones.
-- *[The book's "10 simple things you can do now" for sleep are not in the source.]*
+
+**The book's 10 sleep steps**
+1. **Have something sweet and salty 30–60 minutes before bed.** Sugar and salt lower stress hormones. Eat it slowly. Options:
+   - milk + raw honey + pinch of salt. Milk's calcium lowers PTH, a stress hormone.
+   - pulp-free OJ + gelatin + pinch of salt. Gelatin's glycine is calming.
+   - bone broth + salt + fruit. Broth adds glycine, calcium and magnesium.
+   - fruit + Parmigiano-Reggiano. The cheese's calcium lowers PTH.
+   - Chapter 18 also uses 4 oz milk + 4 oz OJ + ½ Tbsp gelatin + salt.
+2. **Keep a sweet-salty drink by the bed** (e.g. OJ + a pinch of salt) for night waking. It blunts the overnight adrenaline and cortisol spikes.
+3. **Turn off screens 1–2 hours before bed.**
+4. **Take a warm (not hot) Epsom salt bath.** Warmth has a thyroid-like effect and magnesium relaxes. Very hot water raises stress hormones.
+5. **Read or listen to soft music.**
+6. **Make the bedroom restful:** a sound machine, a cooler room, a good mattress.
+7. **No caffeine in the 4–5 hours before bed.**
+8. **Wear socks.** Cold feet are a low-thyroid sign, and warming them helps the body relax.
+9. **Get extra calcium at night** from milk, cheese, bone broth or eggshell calcium. Calcium lowers PTH.
+10. **Journal or meditate before bed** to unload the day's thoughts.
 
 ### 13.3 Exercise
 **Core claim:** exercise is a stressor. Strenuous cardio *and* heavy or high-intensity training are associated with lower thyroid function.
@@ -871,7 +1025,20 @@ The body adds all stressors together: diet, training, work, relationships. "A go
 - **No more than 2–3 intense sessions/week**, with full recovery.
 - Training intensely 5–7 days/week leads to over-training and a depressed thyroid.
 - **Moderate weight training** builds muscle, which means more fat burned at rest. The author's return: **≤45 minutes, 4–5×/week**.
-- *[The book's "quick guidelines" for weight training are not in the source.]*
+- **The book's guidelines for adding weight training** (once energy, sleep and digestion have improved):
+  1. Train in the morning or midday. Evening sessions can disrupt sleep.
+  2. Start with **30-minute sessions, 1–2×/week**.
+  3. Add days gradually, but **no more than 4–5 days/week**.
+  4. **Take a rest day every 2–3 days.**
+  5. Lengthen sessions gradually, to **no more than 60 minutes** including warm-up and cool-down.
+  6. Use **2–5 sets × 12–20 reps** per exercise, with **1–3 minutes of rest** between sets.
+  7. Start light but progress toward heavy. "3- to 5-pound weights are not going to add muscle."
+  8. Focus on large muscles:
+     - **Legs:** squats, lunges, step-ups, deadlifts
+     - **Chest:** push-ups, chest press, bench press, pec fly
+     - **Back:** pull-ups, pulldowns, cable rows, dumbbell rows
+     - **Shoulders:** shoulder press, lateral raises, upright rows
+- The book calls weight training **the best exercise for changing body composition**. The more intense and longer the session, the more the person needs to eat around it.
 
 **Workout fueling**
 - **Before** a 30–60 minute session: **200–400 kcal**, 30–60 minutes ahead. Never train fasted.
@@ -888,7 +1055,17 @@ The body adds all stressors together: diet, training, work, relationships. "A go
 - *Blue Zones* (Buettner): the longest-lived communities share **low stress and strong community**.
 - Jeanne Calment (122 years) credited laughter and not stressing.
 - Coaching prompt: "Do you truly want to change?" If a job, relationship or habit causes more stress than joy, something may need to change.
-- *[The book's "Top 10 tips to find happiness" are not in the source.]*
+- **The book's top 10 tips to find happiness:**
+  1. Write down everything you want to improve.
+  2. Change one thing at a time. Too many changes at once lead to doing nothing.
+  3. Make slow but continual changes; they become habits.
+  4. Get help when you need it: a practitioner, therapist or doctor.
+  5. Trust the journey, even when the start is hard.
+  6. Do the work. Wishing isn't enough.
+  7. Allow your life to shift; stop resisting.
+  8. Believe in yourself. Don't let fear get in the way.
+  9. Stop worrying about what others are doing, saying, wearing or eating.
+  10. Be authentic. Trying to be someone you're not creates stress.
 
 ---
 
@@ -920,94 +1097,131 @@ That works out to roughly **50–55% carbs, about 23% protein and about 22–25%
 
 ## 15. Recipes
 
-*Ingredients and macros are from the book. The book's step-by-step directions did not survive in the source text. Where noted, the method is a reconstructed standard preparation.*
+*All ingredients, macros and directions are from the book (Chapter 20).*
 
 ### Breakfast
 
-**Spaghetti Squash Veggie Quiche** — serves 4; per serving C 20 / P 25 / F 20 g, 360 kcal
-- **Ingredients:**
-  - 3 cups cooked spaghetti squash (1 medium)
-  - 1 Tbsp coconut oil
-  - 1 cup chopped red pepper
-  - 1 cup chopped zucchini
-  - ½ cup chopped onion
-  - 2 cloves garlic
-  - 8 oz (1 cup) shredded Parmigiano-Reggiano
-  - 5 pastured eggs
-  - 1 cup 2% organic milk
-  - ½ tsp sea salt
-  - ¼ tsp black pepper
-  - nutmeg to taste
-- *Method (reconstructed):*
-  1. Sauté the vegetables and garlic in coconut oil.
-  2. Mix with the squash and cheese and spread in a greased dish.
-  3. Whisk the eggs, milk and seasonings and pour over.
-  4. Bake at about 350 °F until set (~40–45 min).
-- Serve with cooked fruit.
+**Spaghetti Squash Veggie Quiche** — serves 4; per serving C 20 / P 25 / F 20 g, 360 kcal (without fruit)
+
+Ingredients:
+- 3 cups cooked spaghetti squash (1 medium)
+- 1 Tbsp coconut oil
+- 1 cup chopped red pepper
+- 1 cup chopped zucchini
+- ½ cup chopped onion
+- 2 cloves garlic
+- 8 oz (1 cup) shredded Parmigiano-Reggiano
+- 5 pastured eggs
+- 1 cup 2% organic milk
+- ½ tsp sea salt
+- ¼ tsp black pepper
+- nutmeg to taste
+
+Directions:
+1. Preheat the oven to 350 °F.
+2. Spread ½ Tbsp coconut oil in a 9-inch baking dish.
+3. Press the squash onto the bottom and sides of the dish to form an even crust.
+4. Cook the garlic and onion in the other ½ Tbsp coconut oil until soft. Add the peppers and zucchini and cook 2–3 more minutes.
+5. Layer the vegetables over the crust and add 6 oz of the cheese.
+6. Beat the eggs, milk, salt, pepper and nutmeg, and pour over.
+7. Bake 30 minutes.
+8. Sprinkle on the remaining 2 oz cheese and bake 10–20 minutes more, until set and lightly browned.
+9. Rest 5 minutes. Serve with fruit.
 
 **Banana–Sweet Potato–Raisin Cakes** — serves 1 (10–12 small pancakes); C 55 / P 14 / F 21 g, 430 kcal (without topping)
-- **Ingredients:**
-  - 2 pastured eggs
-  - ½ very ripe banana
-  - ½ large cooked, cooled yellow sweet potato
-  - ½ tsp baking soda
-  - 1 Tbsp gelatin
-  - ¼ tsp cinnamon
-  - ½ Tbsp sugar
-  - ½ Tbsp ghee or coconut oil for the pan
-  - 20 raisins
-- **Optional topping:** 1 scoop Fage Greek yogurt, 1 tsp powdered sugar, 1 Tbsp maple syrup.
-- *Method (reconstructed):*
-  1. Mash or blend everything except the raisins and fat.
-  2. Fold in the raisins.
-  3. Cook small rounds in ghee or coconut oil over medium-low heat, turning once.
+
+Ingredients:
+- 2 pastured eggs
+- ½ very ripe banana
+- ½ large cooked, cooled yellow sweet potato
+- ½ tsp baking soda
+- 1 Tbsp gelatin
+- ¼ tsp cinnamon
+- ½ Tbsp sugar
+- ½ Tbsp ghee or coconut oil for the pan
+- 20 raisins
+
+Optional topping:
+- 1 scoop Fage Greek yogurt
+- 1 tsp powdered sugar
+- 1 Tbsp maple syrup
+
+Directions:
+1. Mash the banana and sweet potato with a fork.
+2. Mix in the eggs, baking soda, cinnamon, gelatin and sugar until smooth.
+3. Warm a skillet over medium heat and melt the fat. A non-stick pan is fine if it isn't chipped.
+4. Spoon heaping 1 Tbsp portions into the pan and add 2 raisins to each cake.
+5. Flip when the tops bubble.
+6. Add topping before serving.
 
 **Breakfast Smoothie** — serves 1; C 35 / P 21 / F 9 g, 315 kcal
-- **Ingredients:**
-  - 1 cup 2% milk
-  - ¾ cup frozen fruit
-  - 1 raw pastured egg
-  - 1 Tbsp gelatin (hydrolyzed for cold blending)
-  - 1 Tbsp sugar or honey
-  - pinch of white sea salt
-- Blend.
+
+Ingredients:
+- 1 cup 2% milk
+- ¾ cup frozen fruit
+- 1 raw pastured egg
+- 1 Tbsp gelatin
+- 1 Tbsp sugar or honey
+- pinch of white sea salt
+
+Directions: blend until smooth.
 
 ### Snacks
 
-**Baked Apples / Peaches / Pears / Nectarines** — serves 10; C 22 / P 8 / F 8 g, 200 kcal
-- **Ingredients:**
-  - 4 medium apples
-  - 4 medium pears
-  - 3 medium peaches (out of season, use 3 more apples or pears)
-  - 2 Tbsp organic butter
-  - 1 Tbsp cinnamon
-  - 10 oz shaved additive-free Parmigiano-Reggiano
-- **Substitute:** ¼ cup ricotta, or add ½ cup milk.
-- *Method (reconstructed):*
-  1. Peel and slice the fruit (skinless is easier to digest).
-  2. Toss with melted butter and cinnamon.
-  3. Bake at about 350 °F until very soft (~30–40 min).
-  4. Serve each portion with 1 oz Parmesan.
+**Baked Apples / Peaches / Pears / Nectarines** — serves 10 (1-cup servings); C 22 / P 8 / F 8 g, 200 kcal
+
+Ingredients:
+- 4 medium apples
+- 4 medium pears
+- 3 medium peaches (out of season, use 3 more apples or pears)
+- 2 Tbsp organic butter
+- 1 Tbsp cinnamon
+- 10 oz shaved additive-free Parmigiano-Reggiano
+
+Directions:
+1. Preheat the oven to 350 °F.
+2. Cut the fruit into bite-size pieces.
+3. Put the fruit, butter and cinnamon in a glass dish.
+4. Bake 45–55 minutes, until soft, stirring every 10–15 minutes.
+5. Serve warm or cool. Add 1 oz (about 3 level Tbsp) grated Parmesan to each 1-cup serving.
+6. Store the rest without cheese, and add cheese only when serving.
+
+Substitutes for the cheese: ¼ cup ricotta, or ½ cup milk.
 
 **Raw Carrot Salad** — serves 2; C 7 / P 0 / F 3 g, 55 kcal
-- **Ingredients:**
-  - 2 raw medium carrots, grated or shredded
-  - ½ Tbsp melted coconut oil
-  - ½ Tbsp white vinegar
-  - salt to taste
-- Toss together. Eat with cottage cheese or Parmesan for protein and fat.
+
+Ingredients:
+- 2 raw medium carrots
+- ½ Tbsp melted coconut oil
+- ½ Tbsp white vinegar
+- salt to taste
+
+Directions:
+1. Grate the carrots lengthwise.
+2. Mix in the coconut oil and vinegar.
+3. Salt to taste.
+
+Eat with cottage cheese or Parmesan for protein and fat.
 
 **Kate's Miracle Drink** (the during-workout and between-meal hydrator) — serves 1; C 16 / P 6 / F 0 g, 88 kcal
-- **Ingredients:**
-  - 4 oz pulp-free organic OJ
-  - 2 oz organic pulp-free coconut water (optional; or use 2 oz more OJ)
-  - 1 Tbsp hydrolyzed gelatin
-  - ⅛ tsp white sea salt (more if needed)
-  - ice
-  - 6–10 oz carbonated or filtered water, to fill the bottle
-- Mix in a bottle. **Sip slowly. Don't gulp it.**
 
-### Post-workout drinks (add ice for a thicker, colder drink)
+Ingredients:
+- 4 oz pulp-free organic OJ
+- 2 oz pulp-free organic coconut water (optional; replace with 2 more oz OJ)
+- 1 Tbsp hydrolyzed gelatin
+- ⅛ tsp white sea salt (more if needed)
+- ice
+- 6–10 oz carbonated or filtered water
+
+Directions:
+1. Put the OJ, coconut water, salt and gelatin in a 20 oz bottle and shake or blend well.
+2. Add ice and shake. Don't blend.
+3. Top up with the water. If using carbonated water, shake gently so it doesn't fizz over.
+4. **Sip slowly** through the day and/or during the workout. Don't gulp it.
+
+### Post-workout drinks
+
+For each: blend or shake everything and sip after the workout. Add ice for a thicker, colder drink.
 
 **Homemade Chocolate Milk** — C 32 / P 21 / F 12 g, 320 kcal
 - 1½ cups 2% organic milk
@@ -1017,145 +1231,190 @@ That works out to roughly **50–55% carbs, about 23% protein and about 22–25%
 - pinch of salt
 
 **Orange Creamsicle** — C 25 / P 14 / F 5 g, 201 kcal
-- ½ cup pulp-free OJ
+- ½ cup pulp-free OJ (fresh-squeezed is best)
 - 1 cup 2% milk
 - 1 Tbsp gelatin
 - pinch of salt
-- Optional: ½ cup Häagen-Dazs vanilla ice cream
+- optional: ½ cup Häagen-Dazs vanilla ice cream
 
 **Milk and Honey** — C 32 / P 14 / F 5 g, 229 kcal
 - 1½ cups 2% milk
 - 1 Tbsp gelatin
 - 1 Tbsp raw honey
 - pinch of salt
-- Optional: ½ cup vanilla ice cream
-- Also the standard bedtime snack.
+- optional: ½ cup vanilla ice cream
+
+Milk and Honey also doubles as the bedtime snack.
 
 ### Lunch and dinner
 
 **Liver and Onions** — serves 5; C 10 / P 22 / F 10 g, 220 kcal
-- **Ingredients:**
-  - 1 lb grass-fed beef liver, cut ¼–½ inch thick
-  - 3 Tbsp butter
-  - 1 medium onion, diced
-  - 2 Tbsp white sugar
-  - 1 cup milk
-  - ½ cup coconut flour
-- *Method (reconstructed):*
-  1. Soak the liver in the milk (this softens the flavor).
-  2. Caramelize the onion in butter with the sugar and set aside.
-  3. Dredge the liver in coconut flour and fry in butter 2–3 minutes per side until just cooked.
-  4. Top with the onions.
-- Serve with marinara, an egg and cooked fruit, as in Day 3.
 
-**Homemade Marinara with Spaghetti Squash** — 6 servings of ½ cup; C 25 / P 5 / F 6 g, 175 kcal (without meat or fish)
-- **Ingredients:**
-  - 2 medium spaghetti squash
-  - 1 can organic whole peeled tomatoes (Bionature)
-  - 2 Tbsp refined coconut oil
-  - 2 Tbsp hydrolyzed gelatin (optional)
-  - 1 Tbsp Italian herbs
-  - 2 cloves garlic
-  - ⅓ large onion
-  - 1 medium grated carrot
-  - ½ Tbsp sugar
-  - salt and pepper
-  - ½ cup Parmesan
-- **Optional:** 1 lb ground beef, lamb or shrimp.
-- *Method (reconstructed):*
-  1. Roast the halved squash at about 400 °F until tender (~40 min) and fork into strands.
-  2. Sauté the onion, garlic and carrot in coconut oil.
-  3. Add the tomatoes, herbs and sugar and simmer 20–30 minutes.
-  4. Stir in the gelatin.
-  5. Top with Parmesan.
-- Keeps 1 week refrigerated or 6 months frozen.
+Ingredients:
+- 1 lb grass-fed beef liver, cut ¼–½ inch thick
+- 3 Tbsp butter
+- 1 medium onion, diced
+- 2 Tbsp white sugar
+- 1 cup milk
+- ½ cup coconut flour
+
+Directions:
+1. **Soak the liver in the milk overnight.**
+2. Caramelize the onion in 2 Tbsp butter with the sugar, then set aside.
+3. Coat the liver in coconut flour.
+4. Fry in 1 Tbsp butter, **1–2 minutes per side**.
+5. Top with the onions.
+
+**Homemade Marinara and Spaghetti Squash** — 6 servings of ½ cup sauce; C 25 / P 5 / F 6 g, 175 kcal (without meat or fish)
+
+Ingredients:
+- 2 medium spaghetti squash
+- 1 can organic whole peeled tomatoes (Bionature)
+- 2 Tbsp refined coconut oil
+- 2 Tbsp hydrolyzed gelatin (optional)
+- 1 Tbsp Italian herbs (basil, oregano, thyme, rosemary)
+- 2 cloves garlic, diced
+- ⅓ large onion, diced
+- 1 medium carrot, grated
+- ½ Tbsp sugar
+- salt and pepper
+- ½ cup Parmesan
+- optional: 1 lb ground beef, lamb or shrimp
+
+Directions:
+1. Heat the oven to 350 °F.
+2. Halve the squash, scoop out the seeds, and bake cut-side down 35–45 minutes, until the strands pull out easily.
+3. Cook the onion and garlic in coconut oil over medium heat until soft, 8–10 minutes.
+4. Add the carrot, salt and pepper and cook 3–5 minutes.
+5. Mash the tomatoes and add them with their juice. Stir in the herbs, sugar and gelatin.
+6. Simmer 20–30 minutes.
+7. Serve 2 cups squash with ½ cup sauce and 1 Tbsp Parmesan.
+
+Keeps 1 week refrigerated or 6 months frozen.
 
 **Potato–Butternut Squash Soup** — serves 8; C 45 / P 15 / F 7 g, 302 kcal
-- **Ingredients:**
-  - 2 lb golden potatoes
-  - 2 lb butternut squash
-  - 2 medium apples
-  - 2 medium yellow onions
-  - ⅛ tsp each cumin, curry and cinnamon
-  - salt and pepper
-  - 3 Tbsp butter
-  - 2 cups 1–2% milk
-  - 1–2 cups vegetable broth
-  - ½ cup ricotta
-  - gelatin (the source says "12 T." — likely a typo. Use 1–2 Tbsp per serving, or to taste.)
-- *Method (reconstructed):*
-  1. Peel and cube the vegetables and apples.
-  2. Sauté the onion in butter.
-  3. Add the potatoes, squash, apples, spices and broth, and simmer until very soft.
-  4. Blend with the milk and gelatin.
-- Serve each 8 oz bowl with 1 Tbsp ricotta.
+
+Ingredients:
+- 2 lb golden potatoes
+- 2 lb butternut squash
+- 2 medium apples
+- 2 medium yellow onions
+- ⅛ tsp each cumin, curry and cinnamon
+- salt and pepper
+- 3 Tbsp butter
+- 2 cups 1–2% milk
+- 1–2 cups vegetable broth
+- ½ cup ricotta
+- gelatin: the book says "12 T." This is probably a typo; use 1–2 Tbsp to taste.
+
+Directions:
+1. Heat the oven to 425 °F.
+2. Peel the potatoes, squash, apples and onions and cut into 1-inch pieces.
+3. Split them between two dishes with 1½ Tbsp butter each.
+4. Roast about 45 minutes, until tender, stirring occasionally.
+5. Blend with the milk, broth and spices. Work in batches if needed, and add more broth for a thinner soup.
+6. Transfer to a 2-quart pan and stir in the gelatin.
+7. Serve each 8 oz bowl with 1 Tbsp ricotta.
 
 **Cod with Coconut Sauce** — serves 8; C 2 / P 30 / F 12 g, 250 kcal (adapted from Robert Irvine)
-- **Sauce:**
-  - 1 can light coconut milk
-  - 1 cup coconut flakes
-  - 1 Tbsp chili sauce
-  - 1 Tbsp sugar
-  - 1 Tbsp minced parsley
-  - 1 Tbsp tomato paste
-  - 1 Tbsp white sea salt
-  - juice of 6 limes
-  - 2 Tbsp softened butter
-- **Fish:**
-  - 2 lb cod, in 8 × 4 oz portions
-  - salt and pepper
-  - 1 tsp ground coriander
-- *Method (reconstructed):*
-  1. Simmer the sauce ingredients (except the butter) until slightly thickened, then whisk in the butter.
-  2. Season the cod and bake or pan-cook in butter until it flakes.
-  3. Spoon the sauce over.
-- Serve with mashed potatoes, white rice and/or baked fruit.
+
+Sauce ingredients:
+- 1 can light coconut milk
+- 1 cup coconut flakes
+- 1 Tbsp chili sauce
+- 1 Tbsp sugar
+- 1 Tbsp minced parsley
+- 1 Tbsp tomato paste
+- 1 Tbsp white sea salt
+- juice of 6 limes
+- 2 Tbsp softened butter
+
+Fish ingredients:
+- 2 lb cod, in 8 × 4 oz portions
+- salt and pepper
+- 1 tsp ground coriander
+
+Sauce directions:
+1. Blend everything except the butter and let it marinate 30 minutes.
+2. Strain into a saucepan and warm over low heat.
+3. Off the heat, whisk in the butter.
+
+Fish directions:
+1. Preheat a grill to 350 °F, or a grill pan over high heat.
+2. Season the fish with salt, pepper and coriander.
+3. Cook 5–6 minutes per side, to medium-well.
+4. Rest 2–3 minutes, then add the sauce.
+
+Serve with mashed potatoes, white rice and/or baked fruit.
 
 ### Foundations
 
 **Beef Bone Broth** — per cup ~8 g protein, 36 kcal
-- **Ingredients:**
-  - 4 lb raw grass-fed beef bones (knuckle, oxtail, neck, shank)
-  - 1–2 chicken feet (for more gel)
-  - 2 Tbsp vinegar or lemon juice
-  - 2 Tbsp OJ
-  - 1 Tbsp salt
-  - water to cover
-  - chopped vegetables
-- **Method** (from the book's text):
-  1. Cover the bones with water, acid and salt.
-  2. Simmer **12–72 hours**. Chicken bones need only about 12 hours.
-  3. Add the vegetables in the **last 3–4 hours**.
-  4. Strain, refrigerate, and **skim off the fat**.
-- Gelling can take 48–72 hours of simmering.
-- **Storage:** 5 days refrigerated, 2–3 months frozen, in glass or BPA-free containers.
-- **Avoid store-bought broth.** It contains MSG and additives, is made from skins, and lacks minerals.
 
-**Mineral Broth** — essentially 0 kcal
-- **Ingredients:**
-  - ½ lb kale
-  - ½ lb spinach
-  - ½ lb chard
-  - 2 cloves garlic
-  - 1 Tbsp salt
-  - 1 gallon filtered water
-- *Method (reconstructed):* simmer for several hours, strain, and discard the greens. Drink only the liquid.
-- Store in glass up to 2 weeks.
-- **Take 1–2 shots daily** for magnesium, vitamin K and B vitamins.
+Ingredients:
+- 4 lb raw grass-fed beef bones (knuckle, oxtail, neck, shank)
+- 1–2 chicken feet, for more gel
+- 2 Tbsp vinegar or lemon juice
+- 2 Tbsp OJ
+- 1 Tbsp salt
+- water, just enough to cover the bones
+- 2 carrots, 2 celery stalks, 1 small onion
+
+Directions:
+1. **Roast the bones** 40–50 minutes at 350 °F.
+2. Put the cooled bones in cold filtered water and let them sit 30 minutes.
+3. Add the vinegar or lemon juice, OJ and salt.
+4. Bring to a boil, then reduce to a simmer.
+5. For the first few hours, skim off impurities every 20 minutes.
+6. **Simmer at least 24 hours.** Beef may take 24–72 hours to gel; chicken or fish 8–12 hours.
+7. Add the vegetables in the last 3 hours.
+8. Cool and refrigerate overnight, then **skim off the fat**.
+
+The book's keys to a good broth:
+- Always roast the bones first.
+- Acid (vinegar, lemon or OJ) helps break the bones down.
+- Use only enough water to cover the bones. Too much water and it won't gel.
+- The longer it cooks, the more nutritious it gets.
+
+Storage: 5 days refrigerated or 2–3 months frozen, in glass or BPA-free containers.
+
+Avoid store-bought broth. It contains MSG and additives, is made from skins, and lacks minerals.
+
+**Mineral Broth** — about 0 kcal
+
+Ingredients:
+- ½ lb kale
+- ½ lb spinach
+- ½ lb chard
+- 2 cloves garlic
+- 1 Tbsp salt
+- 1 gallon filtered water
+
+Directions:
+1. Add everything to boiling water and make sure the greens are submerged.
+2. Reduce the heat and cook 45 minutes.
+3. Remove all the solids. The liquid should be light green and smell like vegetables.
+
+Store in glass up to 2 weeks. **Drink 1–2 shots daily** for magnesium, vitamin K and B vitamins.
 
 **Eggshell Calcium**
-- **Ingredients:** 12–24 eggshells from pastured, organic hens.
-- **Method** (from the book's text): **boil, then bake** until dry, then **grind to a fine powder**. Never use raw shells.
-- Store sealed in glass.
-- **Dose:** ¼ tsp ≈ 600 mg calcium carbonate. Take with food or OJ.
 
-**Juiced Potato Protein** (very compromised digestion; vegetarians) — ~33 g protein
+Ingredients: 12–24 eggshells from pastured, organic hens.
+
+Directions:
+1. Boil the shells 10–15 minutes to disinfect them.
+2. Spread them on a cookie sheet and bake at **275 °F for 10–15 minutes**, until dry but not browned.
+3. Cool, then grind to a fine powder in a blender or coffee grinder.
+
+Store sealed in glass. **¼ tsp ≈ 600 mg calcium carbonate.** Take with food or OJ, because calcium alone can irritate an empty stomach.
+
+**Juiced Potato Protein** (for very compromised digestion, and for vegetarians) — about 33 g protein
 1. Juice **2 lb white (russet) potatoes**.
-2. Let it stand until the starch settles, then pour off the juice.
-3. Cook the juice in a pan with a little butter, scrambling until it sets.
+2. Let the starch settle, then pour off the juice.
+3. Cook the juice in a pan with a little butter, scrambling it like an egg.
 4. Season with salt and pepper. It tastes like mashed potato.
 
-**Broth meal** (gut-healing or low-appetite meal): bone broth + coconut oil + Parmesan + mashed potato.
+**Broth meal** (for gut healing or low appetite): bone broth + coconut oil + Parmesan + mashed potato.
 
 ---
 
@@ -1189,7 +1448,8 @@ That works out to roughly **50–55% carbs, about 23% protein and about 22–25%
 | Mineral broth | 1–2 shots/day |
 | Coffee | with calories; 3–5 cups in the research cited |
 | Sodium (research cited) | lowest risk at 3,000–6,000 mg/day; salt to taste |
-| Nuts / legumes | 1–2×/month at most while healing |
+| Nuts | 1–2×/week max if healthy (soaked/sprouted, low-PUFA); 1–2×/month while healing |
+| Legumes | 1–2×/month at most while healing |
 | Exercise while healing | 30–45 min, HR < 100, light/moderate |
 | Intense exercise when healthy | ≤ 2–3×/week |
 | Pre-workout | 200–400 kcal, 30–60 min before |
@@ -1230,4 +1490,6 @@ That works out to roughly **50–55% carbs, about 23% protein and about 22–25%
 | Shellfish | 1–2×/week | 1–3×/week | 1–3×/week |
 | Muscle meat | 2–3×/week if healthy | "1×/week or less if inflamed" | 2–3×/week healthy; ≤1×/week or none if inflamed or hypometabolic |
 | Body temperature | 97.8–98.6 °F | FAQ says 98–99 °F | ≥ 97.8 °F on waking, ~98.6 °F midday |
+| Nuts | 1–2×/week (Ch. 11) | 1–2×/month (Appendix B) | 1–2×/month while healing; up to 1–2×/week with good gut health |
+| Broth simmer time | 12–72 h (Ch. 8) | "at least 24 h" for beef (recipe) | Beef 24–72 h; chicken or fish 8–12 h |
 | Gelatin in soup recipe | — | "12 T." | Treat as a typo |
